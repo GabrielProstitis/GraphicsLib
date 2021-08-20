@@ -4,3 +4,5 @@ just create build dir and enter it
 type cmake ..
 type make
 now you have an exe yay
+
+the exe it's just there for test, we will remove it in the future
