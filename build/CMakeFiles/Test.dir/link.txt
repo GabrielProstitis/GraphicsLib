@@ -1,1 +1,0 @@
-/usr/bin/c++ -rdynamic CMakeFiles/Test.dir/src/main.cpp.o -o Test 
