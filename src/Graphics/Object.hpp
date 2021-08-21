@@ -6,15 +6,16 @@
 #include "Mesh.hpp"
 #include "glm/glm.hpp"
 
-#include <vector>
+#include <iostream>
 #include <cstdint>
+#include <vector>
 
 class Object
 {
 protected:
     uint32_t m_ID;
     glm::vec2 position;
-    Mesh m_Mesh;
+    std::vector<Mesh> m_Mesh;
 
 public:
     virtual uint32_t GetID() = 0;

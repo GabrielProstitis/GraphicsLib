@@ -1,30 +1,10 @@
 #include "GraphicsLib.hpp"
 
-using namespace Vortex::Graphics;
-
 int main(void)
 {
-    GLFWwindow *window;
 
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-    if (!LoadOpenGLFunctions())
-    {
-        std::cout << "OpenGL functions not loaded" << std::endl;
-        return -1;
-    }
+    Window window(640, 480, "Graphics Lib Test");
+    InitGraphics(window);
 
     float data[] =
         {
@@ -54,7 +34,7 @@ int main(void)
     Mesh triangle(data, indicies, 3, vb, va, ib);
 
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(window.GetWindow()))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
@@ -62,7 +42,7 @@ int main(void)
         glDrawElements(GL_TRIANGLES, triangle.m_Count, GL_UNSIGNED_INT, 0);
 
         /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(window.GetWindow());
 
         /* Poll for and process events */
         glfwPollEvents();
