@@ -15,7 +15,7 @@
 #include <KHR/khrplatform.h>
 
 #undef APIENTRY
-#ifdef VT_PLATFORM_WINDOWS
+#if defined(VT_PLATFORM_WINDOWS) || defined(WIN32)
 #define APIENTRY __stdcall
 #else
 #define APIENTRY
