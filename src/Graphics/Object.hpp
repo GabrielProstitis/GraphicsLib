@@ -11,6 +11,7 @@ class Object
 {
 protected:
     uint32_t m_ID;
+    uint32_t m_Test;
     Mesh m_Mesh;
 
 public:
