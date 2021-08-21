@@ -7,11 +7,10 @@ int main(void)
     InitGraphics(window);
 
     std::vector<float> data =
-    {
-        -0.5f, -0.5f,
-        0.5f, -0.5f,
-        0.0f, 0.5f 
-    };
+        {
+            -0.5f, -0.5f,
+            0.5f, -0.5f,
+            0.0f, 0.5f};
 
     uint32_t vb;
     glGenBuffers(1, &vb);
@@ -24,7 +23,7 @@ int main(void)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
     std::vector<uint32_t> indices =
-    { 0, 1, 2 };
+        {0, 1, 2};
 
     uint32_t ib;
     glGenBuffers(1, &ib);

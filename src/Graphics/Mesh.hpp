@@ -17,6 +17,6 @@ struct Mesh
     Mesh()
         : m_Vao(0), m_Vbo(0), m_Ibo(0) {}
 
-    Mesh(const std::vector<float>& bufferData, const std::vector<uint32_t>& indices, uint32_t vao, uint32_t vbo, uint32_t ibo)
+    Mesh(const std::vector<float> &bufferData, const std::vector<uint32_t> &indices, uint32_t vao, uint32_t vbo, uint32_t ibo)
         : m_BufferData(bufferData), m_Indices(indices), m_Vao(vao), m_Vbo(vbo), m_Ibo(ibo) {}
 };

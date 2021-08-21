@@ -3,21 +3,24 @@
 #include <OpenGL.hpp>
 #include <GLFW/glfw3.h>
 
-#include "glm/glm/glm.hpp"
-
 #include <cstdint>
+
 #include "glm/glm.hpp"
+
 using namespace Vortex::Graphics;
+
 class Renderer
 {
 
 	/* not in use yet
-public:
+private:
 	glm::mat4 view;
 	Renderer(glm::mat4 view) : view(view){ }*/
+
 public:
 	Renderer() {}
-	void render(const Mesh& mesh)
+
+	void render(const Mesh &mesh)
 	{
 		glBindVertexArray(mesh.m_Vao);
 		glBindBuffer(GL_ARRAY_BUFFER, mesh.m_Vao);
@@ -25,5 +28,4 @@ public:
 
 		glDrawElements(GL_TRIANGLES, mesh.m_Indices.size() * sizeof(uint32_t), GL_UNSIGNED_INT, 0);
 	}
-
 };
