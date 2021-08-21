@@ -1,11 +1,18 @@
-#include "GraphicsLib.hpp"
-
+#include "Graphics/Mesh.hpp"
+#include "Graphics/Object.hpp"
+#include "Graphics/Renderer.hpp"
+#include <iostream>
 using namespace Vortex::Graphics;
-
+#define print(x) std::cout << x;
 int main(void)
 {
     GLFWwindow *window;
-
+    
+    uint32_t s[] = {
+        1
+    };
+    print(sizeof(s));
+    
     /* Initialize the library */
     if (!glfwInit())
         return -1;
@@ -26,30 +33,31 @@ int main(void)
         return -1;
     }
 
-    float data[] =
-        {
-            -0.5f, -0.5f,
-            0.5f, -0.5f,
-            0.0f, 0.5f};
+    std::vector<float> data =
+    {
+       -0.5f, -0.5f,
+        0.5f, -0.5f,
+        0.0f,  0.5f
+    };
 
-    uint32_t vb;
+    GLuint vb;
     glGenBuffers(1, &vb);
     glBindBuffer(GL_ARRAY_BUFFER, vb);
-    glBufferData(GL_ARRAY_BUFFER, 2 * 3 * sizeof(float), data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 2 * 3 * sizeof(GLfloat), data, GL_STATIC_DRAW);
 
-    uint32_t va = 0;
+    GLuint va = 0;
     glBindVertexArray(va);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
 
-    uint32_t indicies[] =
+    GLuint indicies[] =
         {
             0, 1, 2};
 
-    uint32_t ib;
+    GLuint ib;
     glGenBuffers(1, &ib);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(uint32_t), indicies, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(GLuint), indicies, GL_STATIC_DRAW);
 
     Mesh triangle(data, indicies, 3, vb, va, ib);
 
