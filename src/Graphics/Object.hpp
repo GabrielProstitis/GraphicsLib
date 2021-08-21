@@ -12,7 +12,7 @@ class Object
 {
 protected:
     uint32_t m_ID;
-    glm::Vec2 position;
+    glm::vec2 position;
     Mesh m_Mesh;
 
 public:

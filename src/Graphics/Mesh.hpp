@@ -2,6 +2,7 @@
 
 #include <OpenGL.hpp>
 #include <GLFW/glfw3.h>
+
 #include <cstdint>
 
 struct Mesh
