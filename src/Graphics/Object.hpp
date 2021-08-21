@@ -15,6 +15,7 @@ class Object
 protected:
     uint32_t m_ID;
     glm::vec2 position;
+    glm::vec4 color;
     std::vector<Mesh> m_Mesh;
 
 public:
