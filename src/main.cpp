@@ -1,5 +1,4 @@
-#include <OpenGL.hpp>
-#include <GLFW/glfw3.h>
+#include "Mesh.hpp"
 
 #include <iostream>
 
@@ -54,13 +53,15 @@ int main(void)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(GLuint), indicies, GL_STATIC_DRAW);
 
+    Mesh triangle(data, indicies, 3, vb, va, ib);
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, triangle.m_Count, GL_UNSIGNED_INT, 0);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
