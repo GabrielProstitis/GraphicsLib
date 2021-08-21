@@ -1,9 +1,13 @@
-#include <glew.h>
+#include <OpenGL.hpp>
 #include <GLFW/glfw3.h>
+
+#include <iostream>
+
+using namespace Vortex::Graphics;
 
 int main(void)
 {
-    GLFWwindow* window;
+    GLFWwindow *window;
 
     /* Initialize the library */
     if (!glfwInit())
@@ -19,31 +23,31 @@ int main(void)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
-
-    if(glewInit() != GLEW_OK)
-        return -1;
-    
-    GLfloat data[] = 
+    if (!LoadOpenGLFunctions())
     {
-        -0.5f, -0.5f,
-         0.5f,  -0.5f,
-         0.0f,  0.5f
-    };
+        std::cout << "OpenGL functions not loaded" << std::endl;
+        return -1;
+    }
+
+    GLfloat data[] =
+        {
+            -0.5f, -0.5f,
+            0.5f, -0.5f,
+            0.0f, 0.5f};
 
     GLuint vb;
     glGenBuffers(1, &vb);
     glBindBuffer(GL_ARRAY_BUFFER, vb);
     glBufferData(GL_ARRAY_BUFFER, 2 * 3 * sizeof(GLfloat), data, GL_STATIC_DRAW);
 
-    GLuint va;
+    GLuint va = 0;
     glBindVertexArray(va);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
-    
-    GLuint indicies[] = 
-    {
-        0, 1, 2
-    };
+
+    GLuint indicies[] =
+        {
+            0, 1, 2};
 
     GLuint ib;
     glGenBuffers(1, &ib);
