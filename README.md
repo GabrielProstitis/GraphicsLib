@@ -1,8 +1,3 @@
-This is a GraphicsLib for c++ made with GLEW and GLFW
-You don't have to download the libs, it's already in dependencies
-just create build dir and enter it
-type cmake ..
-type make
-now you have an exe yay
-
-the exe it's just there for test, we will remove it in the future
+Graphics Library made with GLFW for creating window and loading OpenGL functions manually. \n
+For now you can run a test by cloning the repos, creating a build folder, and running and building cmake. \n
+Now in the build\Debug folder you should see a GraphicsLib.exe.
