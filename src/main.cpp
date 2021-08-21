@@ -1,7 +1,5 @@
 #include "GraphicsLib.hpp"
 
-#include <iostream>
-
 using namespace Vortex::Graphics;
 
 int main(void)

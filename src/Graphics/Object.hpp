@@ -6,6 +6,7 @@
 #include "Mesh.hpp"
 #include "glm/glm.hpp"
 
+#include <vector>
 #include <cstdint>
 
 class Object
