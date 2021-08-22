@@ -7,12 +7,10 @@ int main(void)
     InitGraphics(window);
 
     Quad quad1(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f));
-    
-    Shader shad("C:\\Users\\PC/Desktop\\c coding\\GraphicsLib\\githubfiles\\src\\Graphics\\Shaders\\vertexShader.glsl", "githubfiles/src/Graphics/Shaders/fragmentShader.glsl");
+    Shader shad("vertexShader.glsl", "fragmentShader.glsl");
     shad.UseShader();
     
-    std::string current_file_path;
-    std::cout << (std::filesystem::current_path());
+    
 
     Renderer MainRenderer;
     while (!glfwWindowShouldClose(window.GetWindow()))

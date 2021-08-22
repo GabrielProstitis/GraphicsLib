@@ -26,6 +26,7 @@ private:
             std::cout << (std::string)"Failed to compile" + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment");
             std::cout << (std::string)"error:" + (std::string)message;
             glDeleteShader(id);
+            __debugbreak();
             return 0;
         }
         return id;
@@ -75,9 +76,11 @@ private:
         return CreateShader(vertexShader_RAW.str(), fragmentShader_RAW.str());
     }
 public:
-    
+    //WARNING DO NOT EVER CHANGE THE PATH OF Shader.hpp and Shaders File
     Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
-        shader = GetShaderFromFile(vertexShaderPath, fragmentShaderPath);
+        std::string currpath = ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\') + 1);
+        currpath += "Shaders\\";
+        shader = GetShaderFromFile(currpath+vertexShaderPath, currpath+fragmentShaderPath);
     };
     ~Shader()
     {
