@@ -25,7 +25,6 @@ public:
 
         m_Window = glfwCreateWindow(width, height, m_Title.c_str(), NULL, NULL);
     }
-
     GLFWwindow *GetWindow() { return m_Window; }
     uint32_t GetWidth() { return m_Width; }
     uint32_t GetHeight() { return m_Height; }

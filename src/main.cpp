@@ -1,24 +1,21 @@
 #include "GraphicsLib.hpp"
-#include <filesystem>
+
 int main(void)
 {
-
     Window window(640, 480, "Graphics Lib Test");
     InitGraphics(window);
 
-    Quad quad1(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f));
-    Shader shad("vertexShader.glsl", "fragmentShader.glsl");
-    shad.UseShader();
-    
-    
+    Renderer MainRenderer("vertexShader.glsl", "fragmentShader.glsl");
+    MainRenderer.setSpace(window.GetWidth(), window.GetHeight());
 
-    Renderer MainRenderer;
+    Quad quad1(glm::vec2(200.0f,200.0f), glm::vec2(120.0f, 120.0f));
+
     while (!glfwWindowShouldClose(window.GetWindow()))
     {
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        MainRenderer.clear();
 
-        MainRenderer.render(&quad1);
+        MainRenderer.render(quad1);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window.GetWindow());

@@ -12,10 +12,13 @@ private:
 
     std::vector<Mesh> m_Mesh;
 
+    glm::mat4 m_Model;
 public:
     Quad(glm::vec2 position, glm::vec2 scale)
         : m_ID(0), m_Position(position), m_Scale(scale), m_Color(0)
     {
+        m_Model = glm::translate(glm::mat4(1.0f), glm::vec3(position.x, position.y, 0.0f));
+
         std::vector<float> data =
             {
                 0.0f, 0.0f,
@@ -51,4 +54,16 @@ public:
 
     uint32_t GetID() { return m_ID; }
     std::vector<Mesh> GetMesh() { return m_Mesh; }
+    glm::vec2 GetPosition()
+    {
+        return m_Position;
+    }
+    glm::vec2 GetScale()
+    {
+        return m_Scale;
+    }
+    glm::mat4 GetModel()
+    {
+        return m_Model;
+    }
 };

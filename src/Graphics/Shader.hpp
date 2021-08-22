@@ -75,6 +75,7 @@ private:
         }
         return CreateShader(vertexShader_RAW.str(), fragmentShader_RAW.str());
     }
+  
 public:
     //WARNING DO NOT EVER CHANGE THE PATH OF Shader.hpp and Shaders File
     Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
@@ -90,6 +91,10 @@ public:
     ~Shader()
     {
         glDeleteProgram(shader);
+    }
+    void SetMat4(glm::mat4 matrix, const std::string& refName)
+    {
+        glUniformMatrix4fv(glGetUniformLocation(shader, refName.c_str()), 1, false, &matrix[0][0]);
     }
     void UseShader()
     {
