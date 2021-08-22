@@ -3,7 +3,7 @@
 #include <OpenGL.hpp>
 #include <GLFW/glfw3.h>
 #include <cstdint>
-
+#include "Objects/Object.hpp"
 #include "Mesh.hpp"
 #include "glm/glm.hpp"
 
@@ -20,8 +20,9 @@ private:
 public:
 	Renderer() {}
 
-	void render(const std::vector<Mesh> &mesh)
+	void render(Object* object) const
 	{
+		auto mesh = (*object).GetMesh();
 		for (auto it = mesh.begin(); it != mesh.end(); it++)
 		{
 			glBindVertexArray(it->m_Vao);
