@@ -1,9 +1,9 @@
 #version 330 core
-
-layout(location = 0) in vec4 gl_Color
-in vec4 frag_color;
+out vec4 Color;
+  
+in vec4 frag_color; // the input variable from the vertex shader (same name and same type)  
 
 void main()
 {
-	gl_Color = frag_color;
-}
+    Color = frag_color;
+} 

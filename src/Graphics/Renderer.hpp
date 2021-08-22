@@ -13,11 +13,6 @@ using namespace Vortex::Graphics;
 
 class Renderer
 {
-
-	/* not in use yet
-private:
-	glm::mat4 view;
-	Renderer(glm::mat4 view) : view(view){ }*/
 private:
 	glm::mat4 m_Proj;
 	Shader m_Shader;
@@ -43,23 +38,8 @@ public:
 	}
 	void render(Object& object) 
 	{
-		auto GetMatrix = [](glm::mat4 matrix) {
-			std::string result;
-			for (int j = 0; j < 4; j++)
-			{
-				result += ("|");
-				for (int x = 0; x < 4; x++)
-					result += std::to_string(matrix[j][x]) + (std::string)" ";
-				result += ("|\n");
-			}
-			return result;
-		};
-
-		Object* objeca = &object;
-		auto mesh = (*objeca).GetMesh();
-		std::cout << GetMatrix((*objeca).GetModel()) << "\n";
-		glm::mat4 u_MP = m_Proj * (*objeca).GetModel();
-		m_Shader.SetMat4(u_MP, "u_MVP");
+		auto mesh = object.GetMesh();
+		m_Shader.SetMat4(m_Proj * object.GetModel(), "u_MVP");
 
 		for (auto it = mesh.begin(); it != mesh.end(); it++)
 			render(*it);

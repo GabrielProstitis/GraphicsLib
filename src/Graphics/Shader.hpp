@@ -78,13 +78,16 @@ private:
   
 public:
     //WARNING DO NOT EVER CHANGE THE PATH OF Shader.hpp and Shaders File
+    //Getting shaders from src/Shaders
     Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
-        std::string currpath = ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('/') + 1) + (std::string)"Shaders\\";
-        if(currpath == "Shaders\\")
-            currpath = ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\') + 1) + (std::string)"Shaders\\";
-
-        std::cout << (currpath.size());
-        std::cout << (__FILE__) << "\n";
+        std::string currpath =
+            ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\') - 9) +
+            "\\Shaders\\";
+        if(currpath == "\\Shaders\\")
+            currpath =
+            ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('/') - 9) +
+            "/Shaders/";
+        std::cout << currpath;
 
         shader = GetShaderFromFile(currpath+vertexShaderPath, currpath+fragmentShaderPath);
     };
@@ -100,7 +103,7 @@ public:
     {
         glUseProgram(shader);
     }
-    unsigned int GetShader() const
+    operator unsigned int() const noexcept
     {
         return shader;
     }
