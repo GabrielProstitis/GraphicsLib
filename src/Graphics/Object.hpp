@@ -21,3 +21,11 @@ protected:
 public:
     virtual uint32_t GetID() = 0;
 };
+class cube : public Object
+{
+public:
+    uint32_t GetID()
+    {
+        return 2;
+    }
+};

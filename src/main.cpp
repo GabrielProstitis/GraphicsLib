@@ -1,5 +1,5 @@
 #include "GraphicsLib.hpp"
-#include "Graphics/Renderer.hpp"
+
 int main(void)
 {
 
@@ -32,7 +32,7 @@ int main(void)
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint32_t), &indices[0], GL_STATIC_DRAW);
 
     Mesh Triangle(data, indices, va, vb, ib);
-
+    cube a;
     Renderer MainRenderer;
     while (!glfwWindowShouldClose(window.GetWindow()))
     {

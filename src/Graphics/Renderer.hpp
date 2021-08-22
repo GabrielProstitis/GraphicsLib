@@ -2,9 +2,7 @@
 
 #include <OpenGL.hpp>
 #include <GLFW/glfw3.h>
-
 #include <cstdint>
-
 #include "glm/glm.hpp"
 
 using namespace Vortex::Graphics;
@@ -27,5 +25,9 @@ public:
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.m_Ibo);
 
 		glDrawElements(GL_TRIANGLES, mesh.m_Indices.size() * sizeof(uint32_t), GL_UNSIGNED_INT, 0);
+	}
+
+	void render(const Object &obj)
+	{
 	}
 };
