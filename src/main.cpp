@@ -1,5 +1,5 @@
 #include "GraphicsLib.hpp"
-
+#include <filesystem>
 int main(void)
 {
 
@@ -8,8 +8,12 @@ int main(void)
 
     Quad quad1(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f));
     
-    unsigned int shader = GetShaderFromFile("githubfiles/src/Graphics/Shaders/vertexShader.glsl", "githubfiles/src/Graphics/Shaders/fragmentShader.glsl");
-    glUseProgram(shader);
+    Shader shad("C:\\Users\\PC/Desktop\\c coding\\GraphicsLib\\githubfiles\\src\\Graphics\\Shaders\\vertexShader.glsl", "githubfiles/src/Graphics/Shaders/fragmentShader.glsl");
+    shad.UseShader();
+    
+    std::string current_file_path;
+    std::cout << (std::filesystem::current_path());
+
     Renderer MainRenderer;
     while (!glfwWindowShouldClose(window.GetWindow()))
     {
