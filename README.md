@@ -1,3 +1,2 @@
 **Graphics Library made with GLFW for creating window and loading OpenGL functions manually. Work in progress.**
-At the moment you can just run a test by cloning the repos, creating a build folder, and running and building cmake.
-Now in the build\Debug folder you should see a GraphicsLib.exe.
+The main.cpp is temporary. It's a header only lib. In the cpp file you can create classes and run functions to try out the GraphicsLib
