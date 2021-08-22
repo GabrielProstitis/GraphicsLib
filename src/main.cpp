@@ -18,7 +18,7 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        MainRenderer.render(quad1.GetMesh());
+        MainRenderer.render(&quad1);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window.GetWindow());
