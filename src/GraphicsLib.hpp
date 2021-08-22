@@ -5,3 +5,4 @@
 #include "Graphics/Renderer.hpp"
 #include "Graphics/Mesh.hpp"
 #include "Graphics/Objects/Quad.hpp"
+#include "Graphics/Shader.hpp"

@@ -7,7 +7,9 @@ int main(void)
     InitGraphics(window);
 
     Quad quad1(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f));
-
+    
+    unsigned int shader = GetShaderFromFile("githubfiles/src/Graphics/Shaders/vertexShader.glsl", "githubfiles/src/Graphics/Shaders/fragmentShader.glsl");
+    glUseProgram(shader);
     Renderer MainRenderer;
     while (!glfwWindowShouldClose(window.GetWindow()))
     {
