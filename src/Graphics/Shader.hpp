@@ -76,10 +76,16 @@ private:
         return CreateShader(vertexShader_RAW.str(), fragmentShader_RAW.str());
     }
 public:
+    // G R A P H I C S 8
     //WARNING DO NOT EVER CHANGE THE PATH OF Shader.hpp and Shaders File
     Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
-        std::string currpath = ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\') + 1);
-        currpath += "Shaders\\";
+        std::string currpath = ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('/') + 1) + (std::string)"Shaders\\";
+        if(currpath == "Shaders\\")
+            currpath = ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\') + 1) + (std::string)"Shaders\\";
+
+        std::cout << (currpath.size());
+        std::cout << (__FILE__) << "\n";
+
         shader = GetShaderFromFile(currpath+vertexShaderPath, currpath+fragmentShaderPath);
     };
     ~Shader()

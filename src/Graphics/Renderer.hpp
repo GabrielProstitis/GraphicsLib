@@ -28,6 +28,6 @@ public:
 			glBindBuffer(GL_ARRAY_BUFFER, it->m_Vbo);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, it->m_Ibo);
 			glDrawElements(GL_TRIANGLES, it->m_Indices.size() * sizeof(uint32_t), GL_UNSIGNED_INT, 0);
-		}
+		} 
 	}
 };
