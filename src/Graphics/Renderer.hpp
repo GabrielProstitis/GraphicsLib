@@ -6,8 +6,6 @@
 #include "Objects/Object.hpp"
 #include "Mesh.hpp"
 #include "Shader.hpp"
-#include "glm/glm.hpp"
-#include "glm/glm/gtc/matrix_transform.hpp"
 
 using namespace Vortex::Graphics;
 
@@ -25,9 +23,9 @@ public:
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
-	void setSpace(float x, float y)
+	void setSpace(float x_min, float x_max, float y_min, float y_max)
 	{
-		m_Proj = glm::ortho(0.0f, x, 0.0f, y, -1.0f, 1.0f);
+		m_Proj = glm::ortho(x_min, x_max, y_min, y_max, -1.0f, 1.0f);
 	}
 	void render(const Mesh& mesh) const
 	{
@@ -38,9 +36,9 @@ public:
 	}
 	void render(Object& object) 
 	{
-		auto mesh = object.GetMesh();
 		m_Shader.SetMat4(m_Proj * object.GetModel(), "u_MVP");
 
+		std::vector<Mesh> mesh = object.GetMesh();
 		for (auto it = mesh.begin(); it != mesh.end(); it++)
 			render(*it);
 	}

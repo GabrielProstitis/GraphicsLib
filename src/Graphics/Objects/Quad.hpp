@@ -21,10 +21,10 @@ public:
 
         std::vector<float> data =
             {
-                0.0f, 0.0f,
-                scale.x, 0.0f,
-                scale.x, scale.y,
-                0.0f, scale.y};
+               -scale.x/2.0f, -scale.y/2.0f,
+                scale.x/2.0f, -scale.y/2.0f,
+                scale.x/2.0f,  scale.y/2.0f,
+               -scale.x/2.0f,  scale.y/2.0f};
 
         uint32_t vb;
         glGenBuffers(1, &vb);
