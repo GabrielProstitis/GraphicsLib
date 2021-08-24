@@ -7,22 +7,6 @@ class Collision2D : public Component
 public: 
 	void Component::Initialize(Object& obj)
 	{
-		std::cout << "initialized  Collision2D";
-	}
-	bool isColliding(Mesh othermesh)
-	{
-
+		std::cout << "\ninitialized  Collision2D";
 	}
 };
-
-class testcomponent : public Component
-{
-public:
-	void Initialize(Object& obj)
-	{
-
-	}
-	int isworking = 23;
-};
-
-

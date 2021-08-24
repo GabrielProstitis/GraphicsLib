@@ -37,7 +37,7 @@ public:
     {
         for (auto i = Components.begin(); i < Components.end(); i++)
         {
-            delete[] * i;
+            delete[] *i;
             break;
         }
     }
@@ -54,7 +54,7 @@ public:
         int ErrorMode = -1;
         if (Components.size() == 0)
         {
-            GiveException("No Any Components");
+            LOGBREAK("No Any Components");
         }
         for (auto it = Components.begin(); it != Components.end(); it++)
         {
@@ -64,7 +64,7 @@ public:
         }
         if (ErrorMode == -1)
         {
-            GiveException("Couldnt Find The Component");
+            LOGBREAK("Couldnt Find The Component");
 
             return nullptr;
         }

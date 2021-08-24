@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#define GiveException(Description)\
+#define LOGBREAK(Description)\
 std::cout << "\nError in " << __FILE__ <<":"<< __LINE__ <<  " "<< Description;\
 __debugbreak()
 
