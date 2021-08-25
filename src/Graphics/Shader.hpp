@@ -23,8 +23,8 @@ private:
             glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
             char* message = (char*)alloca(length * sizeof(char));
             glGetShaderInfoLog(id, length, &length, message);
-            std::cout << (std::string)"Failed to compile" + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment");
-            std::cout << (std::string)"error:" + (std::string)message;
+            std::cout << (std::string)"\n" + (std::string)"Failed to compile " + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment" + (std::string)" shader");
+            std::cout << (std::string)"\n" + (std::string)"error:" + (std::string)message;
             glDeleteShader(id);
             __debugbreak();
             return 0;

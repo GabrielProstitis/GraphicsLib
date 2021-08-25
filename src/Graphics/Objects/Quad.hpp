@@ -1,30 +1,31 @@
 #include "Object.hpp"
+#include <string>
 
 class Quad : public Object
 {
 private:
     uint32_t m_ID;
 
-    glm::vec2 m_Position;
-    glm::vec2 m_Scale;
+    glm::vec3 m_Position;
+
+    glm::vec2 m_Size;
 
     glm::vec4 m_Color;
 
     std::vector<Mesh> m_Mesh;
 
-    glm::mat4 m_Model;
 public:
-    Quad(glm::vec2 position, glm::vec2 scale)
-        : m_ID(0), m_Position(position), m_Scale(scale), m_Color(0)
+    Quad(glm::vec2 position, glm::vec2 size, glm::vec4 color)
+        : m_ID(0), m_Position(glm::vec3(position.x, position.y, 0)), m_Size(size), m_Color(color)
     {
-        m_Model = glm::translate(glm::mat4(1.0f), glm::vec3(position.x, position.y, 0.0f));
 
         std::vector<float> data =
-            {
-               -scale.x/2.0f, -scale.y/2.0f,
-                scale.x/2.0f, -scale.y/2.0f,
-                scale.x/2.0f,  scale.y/2.0f,
-               -scale.x/2.0f,  scale.y/2.0f};
+        {
+            -size.x/2.0f, -size.y/2.0f,
+             size.x/2.0f, -size.y/2.0f,
+             size.x/2.0f,  size.y/2.0f,
+            -size.x/2.0f,  size.y/2.0f
+        };
 
         uint32_t vb;
         glGenBuffers(1, &vb);
@@ -32,14 +33,16 @@ public:
         glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(float), &data[0], GL_STATIC_DRAW);
 
         uint32_t va = 0;
+        glGenVertexArrays(1, &va);
         glBindVertexArray(va);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
         std::vector<uint32_t> indices =
-            {
-                0, 1, 2,
-                2, 3, 0};
+        {
+            0, 1, 2,
+            2, 3, 0
+        };
 
         uint32_t ib;
         glGenBuffers(1, &ib);
@@ -51,19 +54,31 @@ public:
 
         m_Mesh = pMesh;
     }
+    Quad(glm::vec2 position, glm::vec2 size, glm::vec3 color)
+        : Quad(position, size, glm::vec4(color.x, color.y, color.z, 1.0f)) {}
+    Quad(glm::vec2 position, glm::vec2 size)
+        : Quad(position, size, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)){}
 
     uint32_t GetID() { return m_ID; }
     std::vector<Mesh> GetMesh() { return m_Mesh; }
-    glm::vec2 GetPosition()
+    glm::vec3 GetPosition()
     {
         return m_Position;
     }
-    glm::vec2 GetScale()
+    void SetPosition(glm::vec3 pos)
     {
-        return m_Scale;
+        m_Position = pos;
     }
-    glm::mat4 GetModel()
+    glm::vec2 GetSize()
     {
-        return m_Model;
+        return m_Size;
+    }
+    glm::vec4 GetColor()
+    {
+        return m_Color;
+    }
+    void SetColor(glm::vec4 color)
+    {
+        m_Color = color;
     }
 };

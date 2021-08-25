@@ -24,8 +24,8 @@ class Object
 public:
     virtual uint32_t GetID() = 0;
     virtual std::vector<Mesh> GetMesh() = 0;
-    virtual glm::mat4 GetModel() = 0;
-
+    virtual glm::vec3 GetPosition() = 0;
+    virtual glm::vec4 GetColor() = 0;
 
 
     #pragma region Components

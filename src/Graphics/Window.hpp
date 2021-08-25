@@ -29,4 +29,9 @@ public:
     uint32_t GetWidth() { return m_Width; }
     uint32_t GetHeight() { return m_Height; }
     std::string GetTitle() { return m_Title; }
+
+    bool IsButtonDown(GLint Key)
+    {
+        return glfwGetKey((m_Window), Key);
+    }
 };
