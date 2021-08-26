@@ -67,11 +67,11 @@ private:
         readFragmentS.close();
         if (vertexShader_RAW.str().size() == 0)
         {
-            // __debugbreak();
+            __debugbreak();
         }
         else if (fragmentShader_RAW.str().size() == 0)
         {
-            // __debugbreak();
+            __debugbreak();
         }
         return CreateShader(vertexShader_RAW.str(), fragmentShader_RAW.str());
     }
@@ -81,18 +81,24 @@ public:
     //Getting shaders from src/Shaders
     Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
     {
-        std::string currpath =
-            ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\')) +
-            "\\Shaders\\";
-
-        if (currpath == "\\Shaders\\")
+        std::string rawPath = (std::string)__FILE__;         
+        std::string currpath;
+        if (*rawPath.substr((int)rawPath.size() - 11, 1).c_str() == '\\')
+        {
             currpath =
-                ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('/')) +
+                ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\') - 9) +
+                "\\Shaders\\";
+        }
+        else
+        {
+            currpath =
+                ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('/') - 9) +
                 "/Shaders/";
-        /*
-        std::cout << __FILE__ << std::endl;
+        }
+
+        
         std::cout << currpath << std::endl;
-        */
+        
 
         shader = GetShaderFromFile(currpath + vertexShaderPath, currpath + fragmentShaderPath);
     };
