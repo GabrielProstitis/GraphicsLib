@@ -6,12 +6,12 @@
 using namespace Vortex::Graphics;
 class Shader
 {
-private: 
+private:
     unsigned int shader;
     static unsigned int CompileShader(unsigned int type, const std::string source)
     {
         unsigned int id = glCreateShader(type);
-        const char* src = source.c_str();
+        const char *src = source.c_str();
         glShaderSource(id, 1, &src, nullptr);
         glCompileShader(id);
 
@@ -21,17 +21,17 @@ private:
         {
             int length;
             glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-            char* message = (char*)alloca(length * sizeof(char));
+            char *message = (char *)alloca(length * sizeof(char));
             glGetShaderInfoLog(id, length, &length, message);
-            std::cout << (std::string)"\n" + (std::string)"Failed to compile " + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment" + (std::string)" shader");
-            std::cout << (std::string)"\n" + (std::string)"error:" + (std::string)message;
+            std::cout << (std::string) "\n" + (std::string) "Failed to compile " + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment" + (std::string) " shader");
+            std::cout << (std::string) "\n" + (std::string) "error:" + (std::string)message;
             glDeleteShader(id);
             __debugbreak();
             return 0;
         }
         return id;
     }
-    static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+    static unsigned int CreateShader(const std::string &vertexShader, const std::string &fragmentShader)
     {
 
         unsigned int program = glCreateProgram();
@@ -48,7 +48,7 @@ private:
 
         return program;
     }
-    static unsigned int GetShaderFromFile(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
+    static unsigned int GetShaderFromFile(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
     {
         std::stringstream vertexShader_RAW;
         std::stringstream fragmentShader_RAW;
@@ -67,35 +67,40 @@ private:
         readFragmentS.close();
         if (vertexShader_RAW.str().size() == 0)
         {
-            __debugbreak();
+            // __debugbreak();
         }
         else if (fragmentShader_RAW.str().size() == 0)
         {
-            __debugbreak();
+            // __debugbreak();
         }
         return CreateShader(vertexShader_RAW.str(), fragmentShader_RAW.str());
     }
-  
+
 public:
     //WARNING DO NOT EVER CHANGE THE PATH OF Shader.hpp and Shaders File
     //Getting shaders from src/Shaders
-    Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
+    Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
+    {
         std::string currpath =
-            ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\') - 9) +
+            ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('\\')) +
             "\\Shaders\\";
-        if(currpath == "\\Shaders\\")
-            currpath =
-            ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('/') - 9) +
-            "/Shaders/";
-        std::cout << currpath;
 
-        shader = GetShaderFromFile(currpath+vertexShaderPath, currpath+fragmentShaderPath);
+        if (currpath == "\\Shaders\\")
+            currpath =
+                ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('/')) +
+                "/Shaders/";
+        /*
+        std::cout << __FILE__ << std::endl;
+        std::cout << currpath << std::endl;
+        */
+
+        shader = GetShaderFromFile(currpath + vertexShaderPath, currpath + fragmentShaderPath);
     };
     ~Shader()
     {
         glDeleteProgram(shader);
     }
-    void SetMat4(glm::mat4 matrix, const std::string& refName)
+    void SetMat4(glm::mat4 matrix, const std::string &refName)
     {
         glUniformMatrix4fv(glGetUniformLocation(shader, refName.c_str()), 1, false, &matrix[0][0]);
     }

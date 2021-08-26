@@ -20,12 +20,11 @@ public:
     {
 
         std::vector<float> data =
-        {
-            -size.x/2.0f, -size.y/2.0f,
-             size.x/2.0f, -size.y/2.0f,
-             size.x/2.0f,  size.y/2.0f,
-            -size.x/2.0f,  size.y/2.0f
-        };
+            {
+                -size.x / 2.0f, -size.y / 2.0f,
+                size.x / 2.0f, -size.y / 2.0f,
+                size.x / 2.0f, size.y / 2.0f,
+                -size.x / 2.0f, size.y / 2.0f};
 
         uint32_t vb;
         glGenBuffers(1, &vb);
@@ -39,10 +38,9 @@ public:
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
         std::vector<uint32_t> indices =
-        {
-            0, 1, 2,
-            2, 3, 0
-        };
+            {
+                0, 1, 2,
+                2, 3, 0};
 
         uint32_t ib;
         glGenBuffers(1, &ib);
@@ -54,31 +52,17 @@ public:
 
         m_Mesh = pMesh;
     }
+
     Quad(glm::vec2 position, glm::vec2 size, glm::vec3 color)
         : Quad(position, size, glm::vec4(color.x, color.y, color.z, 1.0f)) {}
     Quad(glm::vec2 position, glm::vec2 size)
-        : Quad(position, size, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)){}
+        : Quad(position, size, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)) {}
 
     uint32_t GetID() { return m_ID; }
     std::vector<Mesh> GetMesh() { return m_Mesh; }
-    glm::vec3 GetPosition()
-    {
-        return m_Position;
-    }
-    void SetPosition(glm::vec3 pos)
-    {
-        m_Position = pos;
-    }
-    glm::vec2 GetSize()
-    {
-        return m_Size;
-    }
-    glm::vec4 GetColor()
-    {
-        return m_Color;
-    }
-    void SetColor(glm::vec4 color)
-    {
-        m_Color = color;
-    }
+    glm::vec3 GetPosition() { return m_Position; }
+    void SetPosition(glm::vec3 pos) { m_Position = pos; }
+    glm::vec2 GetSize() { return m_Size; }
+    glm::vec4 GetColor() { return m_Color; }
+    void SetColor(glm::vec4 color) { m_Color = color; }
 };

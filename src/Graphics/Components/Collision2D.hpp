@@ -4,17 +4,16 @@
 
 class Collision2D : public Component
 {
-	Object* object;
+	Object *object;
 
-	std::vector<glm::vec2> PointMaxList;//Per Mesh point
-	std::vector<glm::vec2> PointMinList;//Per Mesh point
+	std::vector<glm::vec2> PointMaxList; //Per Mesh point
+	std::vector<glm::vec2> PointMinList; //Per Mesh point
 
 public:
-	
-	void Component::Initialize(Object& obj)
+	void Component::Initialize(Object &obj)
 	{
 		object = &obj;
-		std::cout << "\ninitialized  Collision2D";
+		//std::cout << "\ninitialized  Collision2D";
 
 		std::vector<Mesh> meshes = (object->GetMesh());
 
@@ -33,26 +32,34 @@ public:
 					PointMin.x = mesh->m_BufferData[j];
 				if (PointMin.y > mesh->m_BufferData[j + 1])
 					PointMin.y = mesh->m_BufferData[j + 1];
-
-				std::cout << "  \n" << "x: " << mesh->m_BufferData[j] << " y: " << mesh->m_BufferData[j + 1];
+				/*
+				std::cout << "  \n"
+						  << "x: " << mesh->m_BufferData[j] << " y: " << mesh->m_BufferData[j + 1];
+				*/
 			}
 			/*object->GetModel()[3][0];
 			object->GetModel()[3][1];
 			object->GetModel()[3][0];
 			object->GetModel()[3][1];*/
+
 			PointMax.x += object->GetPosition().x;
 			PointMax.y += object->GetPosition().y;
 			PointMin.x += object->GetPosition().x;
 			PointMin.y += object->GetPosition().y;
-			std::cout << "\n" << "PointMax: " << PointMax.x << " PointMin: " << PointMax.y;
-			std::cout << "\n" << "PointMin: " << PointMin.x << " PointMin: " << PointMin.y;
+
+			/*
+			std::cout << "\n"
+					  << "PointMax: " << PointMax.x << " PointMin: " << PointMax.y;
+			std::cout << "\n"
+					  << "PointMin: " << PointMin.x << " PointMin: " << PointMin.y;
+			*/
 
 			PointMaxList.push_back(PointMax);
 			PointMinList.push_back(PointMin);
 		}
 	}
 	//For now working with only quad Collision Detection
-	bool isColliding(Collision2D& other)
+	bool isColliding(Collision2D &other)
 	{
 		auto otherMeshList = other.object->GetMesh();
 
@@ -61,23 +68,44 @@ public:
 			auto Vertices = mesh->m_BufferData;
 			for (int j = 0; j < Vertices.size(); j += 2)
 			{
-				Vertices[j] += other.object->GetPosition().x; Vertices[j+1] += other.object->GetPosition().y;
-				if ((Vertices[j] <= PointMaxList[0].x && Vertices[j+1] <= PointMaxList[0].y) &&
-					(Vertices[j] >= PointMinList[0].x && Vertices[j+1] >= PointMinList[0].y)
-					)
+				Vertices[j] += other.object->GetPosition().x;
+				Vertices[j + 1] += other.object->GetPosition().y;
+				if ((Vertices[j] <= PointMaxList[0].x && Vertices[j + 1] <= PointMaxList[0].y) &&
+					(Vertices[j] >= PointMinList[0].x && Vertices[j + 1] >= PointMinList[0].y))
 				{
 					return true;
 				}
 			}
 		}
 
+		return false;
+	}
+
+	bool isColliding(Object &other)
+	{
+		//if (other.GetComponent<Collision2D>() != nullptr)
+		//{
+		//	LOGWARNING("No Collision2D found");
+		//	return false;
+		//}
+
+		auto otherMeshList = other.GetMesh();
+
+		for (auto mesh = otherMeshList.begin(); mesh != otherMeshList.end(); mesh++)
+		{
+			auto Vertices = mesh->m_BufferData;
+			for (int j = 0; j < Vertices.size(); j += 2)
+			{
+				Vertices[j] += object->GetPosition().x;
+				Vertices[j + 1] += object->GetPosition().y;
+				if ((Vertices[j] <= PointMaxList[0].x && Vertices[j + 1] <= PointMaxList[0].y) &&
+					(Vertices[j] >= PointMinList[0].x && Vertices[j + 1] >= PointMinList[0].y))
+				{
+					return true;
+				}
+			}
+		}
 
 		return false;
 	}
 };
-
-
-
-
-
-
