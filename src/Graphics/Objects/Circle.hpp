@@ -1,3 +1,4 @@
+#pragma once
 #include "Object.hpp"
 #include <string>
 
@@ -10,11 +11,11 @@ private:
 
     glm::vec4 m_Color;
 
-    std::vector<Mesh> m_Mesh;
+    float m_Radius;
 
 public:
     Circle(glm::vec2 position, float radius, glm::vec4 color)
-        : m_ID(0), m_Position(glm::vec3(position.x, position.y, 0)),  m_Color(color)
+        : m_ID(0), m_Position(glm::vec3(position.x, position.y, 0)),  m_Color(color), m_Radius(radius)
     {
 
         std::vector<float> data;
@@ -62,10 +63,15 @@ public:
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint32_t), &indices[0], GL_STATIC_DRAW);
 
-        std::vector<Mesh> pMesh;
-        pMesh.emplace_back(data, indices, va, vb, ib);
 
-        m_Mesh = pMesh;
+        this->AddComponent<Mesh>();
+        Mesh* result = (this->GetComponent<Mesh>());
+        result->m_BufferData = data;
+        result->m_Indices = indices;
+        result->m_Vao = va;
+        result->m_Vbo = vb;
+        result->m_Ibo = ib;
+
     }
 
     Circle(glm::vec2 position, float radius, glm::vec3 color)
@@ -75,7 +81,6 @@ public:
         : Circle(position, radius, glm::vec4(1.f, 1.f, 1.f, 1.f)){}
 
     uint32_t GetID() { return m_ID; }
-    std::vector<Mesh> GetMesh() { return m_Mesh; }
     glm::vec3 GetPosition()
     {
         return m_Position;
@@ -84,9 +89,9 @@ public:
     {
         m_Position = pos;
     }
-    glm::vec2 GetSize()
+    float GetRadius()
     {
-        return glm::vec2(0, 0);
+        return m_Radius;
     }
     glm::vec4 GetColor()
     {

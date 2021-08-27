@@ -3,7 +3,6 @@
 #include <OpenGL.hpp>
 #include <GLFW/glfw3.h>
 
-#include "../Mesh.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -17,6 +16,7 @@ class Component
 {
 public:
     virtual void Initialize(Object &obj) = 0;
+    virtual void OnUpdate() = 0;
 };
 
 class Object
@@ -24,7 +24,6 @@ class Object
 
 public:
     virtual uint32_t GetID() = 0;
-    virtual std::vector<Mesh> GetMesh() = 0;
     virtual glm::vec3 GetPosition() = 0;
     virtual glm::vec4 GetColor() = 0;
 
@@ -68,11 +67,32 @@ public:
             }
         }
 
-        if (ErrorMode == -1)
-        {
-            return nullptr;
-        }
+        return nullptr;
+        
     }
+    template <typename T>
+    std::vector<T*> GetComponents()
+    {
+        std::vector<T*> result;
+        int ErrorMode = -1;
+
+        if (Components.size() == 0)
+        {
+            return result;
+        }
+
+        for (auto it = Components.begin(); it != Components.end(); it++)
+        {
+            auto Component = dynamic_cast<T*>(*it);
+            if (Component != NULL)
+            {
+                result.push_back(Component);
+            }
+        }
+
+        return result;
+    }
+
 
     template <typename T>
     void RemoveComponent()

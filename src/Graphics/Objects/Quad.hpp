@@ -1,3 +1,4 @@
+#pragma once
 #include "Object.hpp"
 #include <string>
 
@@ -11,8 +12,6 @@ private:
     glm::vec2 m_Size;
 
     glm::vec4 m_Color;
-
-    std::vector<Mesh> m_Mesh;
 
 public:
     Quad(glm::vec2 position, glm::vec2 size, glm::vec4 color)
@@ -47,10 +46,14 @@ public:
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint32_t), &indices[0], GL_STATIC_DRAW);
 
-        std::vector<Mesh> pMesh;
-        pMesh.emplace_back(data, indices, va, vb, ib);
+        this->AddComponent<Mesh>();
+        Mesh* result = (this->GetComponent<Mesh>());
+        result->m_BufferData = data;
+        result->m_Indices = indices;
+        result->m_Vao = va;
+        result->m_Vbo = vb;
+        result->m_Ibo = ib;
 
-        m_Mesh = pMesh;
     }
 
     Quad(glm::vec2 position, glm::vec2 size, glm::vec3 color)
@@ -59,7 +62,6 @@ public:
         : Quad(position, size, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)) {}
 
     uint32_t GetID() { return m_ID; }
-    std::vector<Mesh> GetMesh() { return m_Mesh; }
     glm::vec3 GetPosition() { return m_Position; }
     void SetPosition(glm::vec3 pos) { m_Position = pos; }
     glm::vec2 GetSize() { return m_Size; }

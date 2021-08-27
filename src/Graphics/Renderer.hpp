@@ -4,11 +4,9 @@
 #include <GLFW/glfw3.h>
 #include <cstdint>
 #include "Objects/Object.hpp"
-#include "Mesh.hpp"
 #include "Shader.hpp"
 
 glm::mat4 m_Proj;
-std::vector<Mesh> m_Meshes;
 glm::mat4 m_Model;
 
 using namespace Vortex::Graphics;
@@ -52,10 +50,12 @@ public:
 
 		m_Shader.SetMat4(m_Proj * m_Model, "u_MVP");
 
-		m_Meshes = object.GetMesh();
+		
 		glUniform4f(glGetUniformLocation(m_Shader, "Color"), object.GetColor()[0], object.GetColor()[1], object.GetColor()[2], object.GetColor()[3]);
 
-		for (auto it = m_Meshes.begin(); it != m_Meshes.end(); it++)
-			render(*it);
+
+		std::vector<Mesh*> meshes = object.GetComponents<Mesh>();
+		for (auto it = meshes.begin(); it != meshes.end(); it++)
+			render(**it);
 	}
 };
