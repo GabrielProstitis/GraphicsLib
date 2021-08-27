@@ -19,7 +19,7 @@ int main(void)
 
         circ2.GetComponent<CircleCollision2D>()->isColliding(*circ1.GetComponent<CircleCollision2D>());
 
-        circ2.SetPosition(circ2.GetPosition() - glm::vec3(0.2f, 0,0));
+        circ2.SetPosition(circ2.GetPosition() - glm::vec3(0.0f, 0.2f, 0));
 
 
         MainRenderer.render(circ1);

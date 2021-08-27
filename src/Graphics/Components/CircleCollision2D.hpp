@@ -30,12 +30,15 @@ public:
 		edge.y += this->radius;
 
 		std::cout << "\n" << "x1: " << otheredge.x << " x2: " << edge.x << " result: " << other.object->GetPosition().x - this->object->GetPosition().x;
-		float distance = this->object->GetPosition().x - other.object->GetPosition().x;
-		if (distance < 0) distance *= -1;
-		if (distance <= other.radius + this->radius)
-			std::cout << "\ncolliding";
+		float distanceX = this->object->GetPosition().x - other.object->GetPosition().x;
+		float distanceY = this->object->GetPosition().y - other.object->GetPosition().y;
+		if (distanceX < 0) distanceX *= -1;
+		if (distanceY < 0) distanceY *= -1;
 
-		return false;
+		if (distanceX <= other.radius + this->radius && distanceY <= other.radius + this->radius)
+			return true;
+		else
+			return false;
 	}
 
 	bool isColliding(Object &other)
