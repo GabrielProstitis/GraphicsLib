@@ -17,9 +17,17 @@ int main(void)
     {
         MainRenderer.clear();
 
-        circ2.GetComponent<CircleCollision2D>()->isColliding(*circ1.GetComponent<CircleCollision2D>());
-
-        circ2.SetPosition(circ2.GetPosition() - glm::vec3(0.0f, 0.2f, 0));
+        if(circ2.GetComponent<CircleCollision2D>()->isColliding(*circ1.GetComponent<CircleCollision2D>()))
+            std::cout << "\n" << "colliding";
+        
+        if(window.IsButtonDown(GLFW_KEY_W))
+            circ2.SetPosition(circ2.GetPosition() + glm::vec3(0.00f, +0.5f, 0));
+        if (window.IsButtonDown(GLFW_KEY_S))
+            circ2.SetPosition(circ2.GetPosition() + glm::vec3(0.00f, -0.5f, 0));
+        if (window.IsButtonDown(GLFW_KEY_A))
+            circ2.SetPosition(circ2.GetPosition() + glm::vec3(-0.5f, 0, 0));
+        if (window.IsButtonDown(GLFW_KEY_D))
+            circ2.SetPosition(circ2.GetPosition() + glm::vec3(+0.5f, 0, 0));
 
 
         MainRenderer.render(circ1);

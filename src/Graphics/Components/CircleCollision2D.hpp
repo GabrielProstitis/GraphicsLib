@@ -32,10 +32,9 @@ public:
 		std::cout << "\n" << "x1: " << otheredge.x << " x2: " << edge.x << " result: " << other.object->GetPosition().x - this->object->GetPosition().x;
 		float distanceX = this->object->GetPosition().x - other.object->GetPosition().x;
 		float distanceY = this->object->GetPosition().y - other.object->GetPosition().y;
-		if (distanceX < 0) distanceX *= -1;
-		if (distanceY < 0) distanceY *= -1;
-
-		if (distanceX <= other.radius + this->radius && distanceY <= other.radius + this->radius)
+		float distance = sqrt(distanceX * distanceX + distanceY * distanceY);
+		
+		if (distance < other.radius + this->radius)
 			return true;
 		else
 			return false;
