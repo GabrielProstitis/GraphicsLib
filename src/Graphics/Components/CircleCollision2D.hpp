@@ -7,19 +7,18 @@
 class CircleCollision2D : public Component
 {
 	Object *object;
-	
+
 	float radius;
 
 public:
 	void Component::Initialize(Object &obj)
 	{
 		object = &obj;
-		auto circleObj = dynamic_cast<Circle*>(&obj);
-			radius = circleObj->GetRadius();
-
+		auto circleObj = dynamic_cast<Circle *>(&obj);
+		radius = circleObj->GetRadius();
 	}
-	
-	bool isColliding(CircleCollision2D& other)
+
+	bool isColliding(CircleCollision2D &other)
 	{
 		glm::vec3 otheredge = other.object->GetPosition();
 		otheredge.x += other.radius;
@@ -29,11 +28,12 @@ public:
 		edge.x += this->radius;
 		edge.y += this->radius;
 
-		std::cout << "\n" << "x1: " << otheredge.x << " x2: " << edge.x << " result: " << other.object->GetPosition().x - this->object->GetPosition().x;
+		std::cout << "\n"
+				  << "x1: " << otheredge.x << " x2: " << edge.x << " result: " << other.object->GetPosition().x - this->object->GetPosition().x;
 		float distanceX = this->object->GetPosition().x - other.object->GetPosition().x;
 		float distanceY = this->object->GetPosition().y - other.object->GetPosition().y;
 		float distance = sqrt(distanceX * distanceX + distanceY * distanceY);
-		
+
 		if (distance < other.radius + this->radius)
 			return true;
 		else
@@ -44,8 +44,7 @@ public:
 	{
 		return false;
 	}
-	void OnUpdate()
+	void OnUpdate(float deltaTime)
 	{
-
 	}
 };

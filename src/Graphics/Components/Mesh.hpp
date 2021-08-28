@@ -6,21 +6,20 @@
 class Mesh : public Component
 {
 private:
-	Object* object;
+	Object *object;
+
 public:
-	
 	std::vector<float> m_BufferData;
 	std::vector<uint32_t> m_Indices;
 	uint32_t m_Vao;
 	uint32_t m_Vbo;
 	uint32_t m_Ibo;
 
-	void Component::Initialize(Object& obj)
+	void Component::Initialize(Object &obj)
 	{
 		object = &obj;
 	}
-	void OnUpdate()
+	void OnUpdate(float deltaTime)
 	{
-
 	}
 };

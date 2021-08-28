@@ -1,4 +1,5 @@
 #include "GraphicsLib.hpp"
+#include <chrono>
 
 int main(void)
 {
@@ -8,34 +9,30 @@ int main(void)
     Renderer MainRenderer;
     MainRenderer.setSpace(-(float)(window.GetWidth() / 2), window.GetWidth() / 2, -(float)(window.GetHeight() / 2), window.GetHeight() / 2);
 
-    Circle circ1(glm::vec2(0, 0), 100);
-    Circle circ2(glm::vec2(0, 0), 50);
-    circ1.AddComponent<CircleCollision2D>();
-    circ2.AddComponent<CircleCollision2D>();
+    Circle circ1(glm::vec2(0, 0), 20);
+    circ1.AddComponent<Rigidbody>();
+
+    std::chrono::high_resolution_clock timer;
+    float deltaTime = FLT_MIN;
+    auto start = timer.now();
+    auto stop = timer.now();
 
     while (!glfwWindowShouldClose(window.GetWindow()))
     {
+        auto start = stop;
+
         MainRenderer.clear();
 
-        if(circ2.GetComponent<CircleCollision2D>()->isColliding(*circ1.GetComponent<CircleCollision2D>()))
-            std::cout << "\n" << "colliding";
-        
-        if(window.IsButtonDown(GLFW_KEY_W))
-            circ2.SetPosition(circ2.GetPosition() + glm::vec3(0.00f, +0.5f, 0));
-        if (window.IsButtonDown(GLFW_KEY_S))
-            circ2.SetPosition(circ2.GetPosition() + glm::vec3(0.00f, -0.5f, 0));
-        if (window.IsButtonDown(GLFW_KEY_A))
-            circ2.SetPosition(circ2.GetPosition() + glm::vec3(-0.5f, 0, 0));
-        if (window.IsButtonDown(GLFW_KEY_D))
-            circ2.SetPosition(circ2.GetPosition() + glm::vec3(+0.5f, 0, 0));
-
-
-        MainRenderer.render(circ1);
-        MainRenderer.render(circ2);
-
+        circ1.GetComponent<Rigidbody>()->AddForce(glm::vec3(0.1f, 0.0f, 0.0f) * deltaTime);
+        MainRenderer.render(circ1, deltaTime);
 
         glfwSwapBuffers(window.GetWindow());
         glfwPollEvents();
+
+        stop = timer.now();
+
+        deltaTime = std::chrono::duration<float, std::milli>(stop - start).count();
+        std::cout << deltaTime << std::endl;
     }
 
     glfwTerminate();

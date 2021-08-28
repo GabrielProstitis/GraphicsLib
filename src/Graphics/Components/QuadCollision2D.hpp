@@ -20,7 +20,7 @@ public:
 		glm::vec2 PointMax(0, 0);
 		glm::vec2 PointMin(0, 0);
 
-		Mesh* mesh = obj.GetComponent<Mesh>();
+		Mesh *mesh = obj.GetComponent<Mesh>();
 
 		for (int j = 0; j < mesh->m_BufferData.size(); j += 2)
 		{
@@ -57,22 +57,21 @@ public:
 
 		PointMaxList.push_back(PointMax);
 		PointMinList.push_back(PointMin);
-		
 	}
 	//For now working with only quad Collision Detection
 	bool isColliding(QuadCollision2D &other)
 	{
-			auto Vertices = other.object->GetComponent<Mesh>()->m_BufferData;
-			for (int j = 0; j < Vertices.size(); j += 2)
+		auto Vertices = other.object->GetComponent<Mesh>()->m_BufferData;
+		for (int j = 0; j < Vertices.size(); j += 2)
+		{
+			Vertices[j] += other.object->GetPosition().x;
+			Vertices[j + 1] += other.object->GetPosition().y;
+			if ((Vertices[j] <= PointMaxList[0].x && Vertices[j + 1] <= PointMaxList[0].y) &&
+				(Vertices[j] >= PointMinList[0].x && Vertices[j + 1] >= PointMinList[0].y))
 			{
-				Vertices[j] += other.object->GetPosition().x;
-				Vertices[j + 1] += other.object->GetPosition().y;
-				if ((Vertices[j] <= PointMaxList[0].x && Vertices[j + 1] <= PointMaxList[0].y) &&
-					(Vertices[j] >= PointMinList[0].x && Vertices[j + 1] >= PointMinList[0].y))
-				{
-					return true;
-				}
+				return true;
 			}
+		}
 
 		return false;
 	}
@@ -85,7 +84,6 @@ public:
 			return false;
 		}
 
-		
 		auto Vertices = other.GetComponent<Mesh>()->m_BufferData;
 		for (int j = 0; j < Vertices.size(); j += 2)
 		{
@@ -97,12 +95,10 @@ public:
 				return true;
 			}
 		}
-		
 
 		return false;
 	}
-	void OnUpdate()
+	void OnUpdate(float deltaTime)
 	{
-
 	}
 };

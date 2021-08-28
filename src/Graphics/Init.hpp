@@ -14,7 +14,8 @@ int InitGraphics(Window window)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window.GetWindow());
-    glfwSwapInterval(0);
+    glfwSwapInterval(1);
+
     if (!LoadOpenGLFunctions())
     {
         std::cout << "OpenGL functions not loaded" << std::endl;
