@@ -22,7 +22,7 @@ public:
         std::vector<uint32_t> indices;
 
 #pragma region Creating Triangles and Pushing into data(variable)
-        int steps = 50;
+        int steps = 30;
         float angle = 3.14159 * 2.0f / steps;
 
         float xPos = 0;

@@ -56,10 +56,10 @@ public:
 
 		std::vector<Mesh *> meshes = object.GetComponents<Mesh>();
 
-		if (object.GetComponent<Rigidbody>() != nullptr)
-		{
-			object.GetComponent<Rigidbody>()->OnUpdate(deltaTime);
-		}
+
+		std::vector<Component*> ComponentList = object.GetComponents();
+		for (auto it = ComponentList.begin(); it != ComponentList.end(); it++)
+			(*it)->OnUpdate(deltaTime);
 
 		for (auto it = meshes.begin(); it != meshes.end(); it++)
 			render(**it);
