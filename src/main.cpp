@@ -3,36 +3,39 @@
 
 int main(void)
 {
-    Window window(640, 480, "Graphics Lib Test");
+    Window window(1080, 720, "Graphics Lib Test");
     InitGraphics(window);
 
     Renderer MainRenderer;
     MainRenderer.setSpace(-(float)(window.GetWidth() / 2), window.GetWidth() / 2, -(float)(window.GetHeight() / 2), window.GetHeight() / 2);
 
-    Circle circ1(glm::vec2(0, 0), 20);
+    Circle circ1(glm::vec2(520, 0), 20);
     circ1.AddComponent<Rigidbody>();
+    circ1.AddComponent<CircleCollision2D>();
+    circ1.GetComponent<Rigidbody>()->AddForce(glm::vec3(-5.0f, 0.0f, 0.0f));
+    circ1.GetComponent<Rigidbody>()->SetGravity(1.01f, true);
 
-    std::chrono::high_resolution_clock timer;
-    float deltaTime = FLT_MIN;
-    auto start = timer.now();
-    auto stop = timer.now();
+    Quad quad1(glm::vec2(-520, 0), glm::vec2(100, 50));
+    quad1.AddComponent<Rigidbody>();
+    quad1.AddComponent<QuadCollision2D>();
+    quad1.GetComponent<Rigidbody>()->AddForce(glm::vec3(5.0f, 0.0f, 0.0f));
+    quad1.GetComponent<Rigidbody>()->SetGravity(1.01f, true);
 
     while (!glfwWindowShouldClose(window.GetWindow()))
     {
-        auto start = stop;
 
         MainRenderer.clear();
 
-        circ1.GetComponent<Rigidbody>()->AddForce(glm::vec3(0.1f, 0.0f, 0.0f) * deltaTime);
-        MainRenderer.render(circ1, deltaTime);
+        if (circ1.GetComponent<CircleCollision2D>()->isColliding(*quad1.GetComponent<QuadCollision2D>()))
+        {
+            std::cout << "Circ1 colliding with quad1" << std::endl;
+        }
+
+        MainRenderer.render(circ1);
+        MainRenderer.render(quad1);
 
         glfwSwapBuffers(window.GetWindow());
         glfwPollEvents();
-
-        stop = timer.now();
-
-        deltaTime = std::chrono::duration<float, std::milli>(stop - start).count();
-        std::cout << deltaTime << std::endl;
     }
 
     glfwTerminate();

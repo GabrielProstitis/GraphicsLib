@@ -19,7 +19,7 @@ public:
 	{
 		object = &obj;
 	}
-	void OnUpdate(float deltaTime)
+	void OnUpdate()
 	{
 	}
 };

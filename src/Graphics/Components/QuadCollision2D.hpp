@@ -1,5 +1,6 @@
 #pragma once
 #include "Graphics/Objects/Object.hpp"
+#include "Graphics/Objects/Quad.hpp"
 #include <iostream>
 #include <vector>
 
@@ -7,10 +8,10 @@ class QuadCollision2D : public Component
 {
 	Object *object;
 
+public:
 	std::vector<glm::vec2> PointMaxList; //Per Mesh point
 	std::vector<glm::vec2> PointMinList; //Per Mesh point
 
-public:
 	void Component::Initialize(Object &obj)
 	{
 		//std::cout << "\ninitialized  Collision2D";
@@ -98,7 +99,18 @@ public:
 
 		return false;
 	}
-	void OnUpdate(float deltaTime)
+
+	glm::vec3 GetPosition()
+	{
+		return object->GetPosition();
+	}
+
+	glm::vec2 GetSize()
+	{
+		return dynamic_cast<Quad *>(object)->GetSize();
+	}
+
+	void OnUpdate()
 	{
 	}
 };

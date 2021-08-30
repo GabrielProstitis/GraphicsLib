@@ -6,20 +6,24 @@ class Rigidbody : public Component
 {
     Object *m_Object;
     bool m_Gravity;
-
     float m_GravitySpeed;
+    float m_GravityVelocity;
+    float m_AirDrag;
+    glm::vec3 m_speed;
 
-    bool m_AirDrag;
-    glm::vec3 m_Yspeed;
+    u_int m_Count;
 
 public:
     void Initialize(Object &obj)
     {
         m_Object = &obj;
+
         m_Gravity = true;
         m_GravitySpeed = 1.01f;
-        m_AirDrag = 0.01f;
-        m_Yspeed = glm::vec3(0.0f, -0.01f, 0.0f);
+        m_GravityVelocity = -0.0001f;
+
+        m_AirDrag = 1.006f;
+        m_speed = glm::vec3(0.0f, 0.00001f, 0.0f);
     }
 
     void SetGravity(float gravity, bool tf)
@@ -35,19 +39,28 @@ public:
 
     void AddForce(glm::vec3 force)
     {
-        m_Object->SetPosition(m_Object->GetPosition() + force);
+        m_speed += force;
     }
 
-    void OnUpdate(float deltaTime)
+    glm::vec3 GetSpeed()
     {
-        if (m_Object->GetPosition().y >= -200.0f && m_Gravity) // Substitute this with collision stuff
+        return m_speed;
+    }
+
+    void OnUpdate()
+    {
+        if (m_Gravity == true)
         {
-            m_Object->SetPosition(m_Object->GetPosition() + m_Yspeed * deltaTime);
-            m_Yspeed *= m_GravitySpeed * m_AirDrag;
+            m_GravityVelocity *= m_GravitySpeed;
+            m_speed.y += m_GravityVelocity;
         }
-        else
+        m_speed /= m_AirDrag;
+
+        m_Object->SetPosition(m_Object->GetPosition() + m_speed);
+
+        if (m_speed.x <= 0.001 && m_speed.x >= -0.001)
         {
-            m_Yspeed = glm::vec3(0.0f, 0.0f, 0.0f);
+            m_speed.x = 0;
         }
     }
 };

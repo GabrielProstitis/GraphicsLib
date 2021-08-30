@@ -16,7 +16,7 @@ class Component
 {
 public:
     virtual void Initialize(Object &obj) = 0;
-    virtual void OnUpdate(float deltaTime) = 0;
+    virtual void OnUpdate() = 0;
 };
 
 class Object

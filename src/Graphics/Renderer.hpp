@@ -46,7 +46,7 @@ public:
 		glDrawElements(GL_TRIANGLES, mesh.m_Indices.size() * sizeof(uint32_t), GL_UNSIGNED_INT, 0);
 	}
 
-	void render(Object &object, float deltaTime)
+	void render(Object &object)
 	{
 		m_Model = glm::translate(glm::mat4(1.0f), glm::vec3(object.GetPosition().x, object.GetPosition().y, 0.0f));
 
@@ -58,7 +58,7 @@ public:
 
 		if (object.GetComponent<Rigidbody>() != nullptr)
 		{
-			object.GetComponent<Rigidbody>()->OnUpdate(deltaTime);
+			object.GetComponent<Rigidbody>()->OnUpdate();
 		}
 
 		for (auto it = meshes.begin(); it != meshes.end(); it++)
