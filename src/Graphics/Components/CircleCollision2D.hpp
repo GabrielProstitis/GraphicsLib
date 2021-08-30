@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
 class CircleCollision2D : public Component
 {
 	Object *object;
@@ -18,8 +17,11 @@ public:
 		auto circleObj = dynamic_cast<Circle *>(&obj);
 		radius = circleObj->GetRadius();
 	}
-
-	bool isColliding(CircleCollision2D &other)
+	glm::vec3 GetPosition()
+	{
+		return object->GetPosition();
+	}
+	bool isColliding(CircleCollision2D &other) //Circle&Circle Collision
 	{
 		glm::vec3 otheredge = other.object->GetPosition();
 		otheredge.x += other.radius;
@@ -37,8 +39,8 @@ public:
 
 		if (distance < other.radius + this->radius)
 			return true;
-		else
-			return false;
+
+		return false;
 	}
 
 	bool isColliding(Circle &other)

@@ -9,6 +9,7 @@ class QuadCollision2D : public Component
 	Object *object;
 
 public:
+public:
 	std::vector<glm::vec2> PointMaxList; //Per Mesh point
 	std::vector<glm::vec2> PointMinList; //Per Mesh point
 
@@ -34,31 +35,17 @@ public:
 				PointMin.x = mesh->m_BufferData[j];
 			if (PointMin.y > mesh->m_BufferData[j + 1])
 				PointMin.y = mesh->m_BufferData[j + 1];
-			/*
-			std::cout << "  \n"
-					  << "x: " << mesh->m_BufferData[j] << " y: " << mesh->m_BufferData[j + 1];
-			*/
 		}
-		/*object->GetModel()[3][0];
-		object->GetModel()[3][1];
-		object->GetModel()[3][0];
-		object->GetModel()[3][1];*/
 
 		PointMax.x += object->GetPosition().x;
 		PointMax.y += object->GetPosition().y;
 		PointMin.x += object->GetPosition().x;
 		PointMin.y += object->GetPosition().y;
 
-		/*
-		std::cout << "\n"
-				  << "PointMax: " << PointMax.x << " PointMin: " << PointMax.y;
-		std::cout << "\n"
-				  << "PointMin: " << PointMin.x << " PointMin: " << PointMin.y;
-		*/
-
 		PointMaxList.push_back(PointMax);
 		PointMinList.push_back(PointMin);
 	}
+
 	//For now working with only quad Collision Detection
 	bool isColliding(QuadCollision2D &other)
 	{

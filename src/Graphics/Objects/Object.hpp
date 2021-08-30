@@ -93,6 +93,21 @@ public:
         return result;
     }
 
+    std::vector<Component*> GetComponents()
+    {
+        std::vector<Component*> result;
+        int ErrorMode = -1;
+
+        if (Components.size() == 0)
+            return result;
+
+
+        for (auto it = Components.begin(); it != Components.end(); it++)
+            result.push_back(*it);
+
+        return result;
+    }
+
     template <typename T>
     void RemoveComponent()
     {
