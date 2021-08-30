@@ -20,7 +20,7 @@ public:
 
         m_Gravity = true;
         m_GravitySpeed = 1.01f;
-        m_GravityVelocity = -0.0001f;
+        m_GravityVelocity = -0.001f;
 
         m_AirDrag = 1.006f;
         m_speed = glm::vec3(0.0f, 0.00001f, 0.0f);
@@ -39,6 +39,10 @@ public:
 
     void AddForce(glm::vec3 force)
     {
+        if (force.y > 0)
+        {
+            m_GravityVelocity = -0.001f;
+        }
         m_speed += force;
     }
 
