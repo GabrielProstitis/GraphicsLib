@@ -40,6 +40,7 @@ namespace Vortex::Graphics
 #pragma endregion
 
 #pragma region glMacros
+
 #define GL_TEXTURE0 0x84C0
 #define GL_TEXTURE1 0x84C1
 #define GL_TEXTURE2 0x84C2
@@ -72,6 +73,7 @@ namespace Vortex::Graphics
 #define GL_TEXTURE29 0x84DD
 #define GL_TEXTURE30 0x84DE
 #define GL_TEXTURE31 0x84DF
+
 #define GL_VERTEX_ARRAY 0x8074
 #define GL_MAJOR_VERSION 0x821B
 #define GL_MINOR_VERSION 0x821C

@@ -15,7 +15,7 @@ private:
 
 public:
     Circle(glm::vec2 position, float radius, glm::vec4 color)
-        : m_ID(0), m_Position(glm::vec3(position.x, position.y, 0)), m_Color(color), m_Radius(radius)
+        : m_ID(0), m_Position(glm::vec3(position.x, position.y, 0)), m_Radius(radius)
     {
 
         std::vector<float> data;
@@ -96,13 +96,5 @@ public:
     float GetRadius()
     {
         return m_Radius;
-    }
-    glm::vec4 GetColor()
-    {
-        return m_Color;
-    }
-    void SetColor(glm::vec4 color)
-    {
-        m_Color = color;
     }
 };

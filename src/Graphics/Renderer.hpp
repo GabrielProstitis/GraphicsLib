@@ -52,22 +52,15 @@ public:
 
 		m_Shader.SetMat4(m_Proj * m_Model, "u_MVP");
 
-
 		std::vector<Mesh *> meshes = object.GetComponents<Mesh>();
 
-		if (object.GetComponent<Texture>() != nullptr)
-		{
-			glActiveTexture(GL_TEXTURE0 + 1);
-			Graphics::glBindTexture(GL_TEXTURE_2D, object.GetComponent<Texture>()->TBO);
-			glUniform1i(glGetUniformLocation(m_Shader, "Texture"), object.GetComponent<Texture>()->TBO);
-			glUniform4f(glGetUniformLocation(m_Shader, "Color"), -1, 0, 0, 1);//if x is -1 frag shader switch to render texture
-		}
-		else
-			glUniform4f(glGetUniformLocation(m_Shader, "Color"), object.GetColor()[0], object.GetColor()[1], object.GetColor()[2], object.GetColor()[3]);
+		std::vector<Component *> ComponentList = object.GetComponents();
 
-		std::vector<Component*> ComponentList = object.GetComponents();
 		for (auto it = ComponentList.begin(); it != ComponentList.end(); it++)
+		{
+			(*it)->OnUpdate(m_Shader);
 			(*it)->OnUpdate();
+		}
 
 		for (auto it = meshes.begin(); it != meshes.end(); it++)
 			render(**it);

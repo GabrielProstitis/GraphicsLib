@@ -95,4 +95,8 @@ public:
 	void OnUpdate()
 	{
 	}
+
+	void OnUpdate(Shader &shader)
+	{
+	}
 };

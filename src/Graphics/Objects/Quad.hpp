@@ -14,8 +14,8 @@ private:
     glm::vec4 m_Color;
 
 public:
-    Quad(glm::vec2 position, glm::vec2 size, glm::vec4 color)
-        : m_ID(0), m_Position(glm::vec3(position.x, position.y, 0)), m_Size(size), m_Color(color)
+    Quad(glm::vec2 position, glm::vec2 size)
+        : m_ID(0), m_Position(glm::vec3(position.x, position.y, 0)), m_Size(size)
     {
 
         std::vector<float> data =
@@ -47,24 +47,16 @@ public:
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint32_t), &indices[0], GL_STATIC_DRAW);
 
         this->AddComponent<Mesh>();
-        Mesh* result = (this->GetComponent<Mesh>());
+        Mesh *result = (this->GetComponent<Mesh>());
         result->m_BufferData = data;
         result->m_Indices = indices;
         result->m_Vao = va;
         result->m_Vbo = vb;
         result->m_Ibo = ib;
-
     }
-
-    Quad(glm::vec2 position, glm::vec2 size, glm::vec3 color)
-        : Quad(position, size, glm::vec4(color.x, color.y, color.z, 1.0f)) {}
-    Quad(glm::vec2 position, glm::vec2 size)
-        : Quad(position, size, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)) {}
 
     uint32_t GetID() { return m_ID; }
     glm::vec3 GetPosition() { return m_Position; }
     void SetPosition(glm::vec3 pos) { m_Position = pos; }
     glm::vec2 GetSize() { return m_Size; }
-    glm::vec4 GetColor() { return m_Color; }
-    void SetColor(glm::vec4 color) { m_Color = color; }
 };

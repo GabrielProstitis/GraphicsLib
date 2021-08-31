@@ -64,11 +64,13 @@ private:
         {
             fragmentShader_RAW << line << "\n";
         }
+
         readFragmentS.close();
         if (vertexShader_RAW.str().size() == 0)
         {
             __debugbreak();
         }
+
         else if (fragmentShader_RAW.str().size() == 0)
         {
             __debugbreak();
@@ -81,7 +83,7 @@ public:
     //Getting shaders from src/Shaders
     Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
     {
-        std::string rawPath = (std::string)__FILE__;         
+        std::string rawPath = (std::string)__FILE__;
         std::string currpath;
         if (*rawPath.substr((int)rawPath.size() - 11, 1).c_str() == '\\')
         {
@@ -95,23 +97,36 @@ public:
                 ((std::string)__FILE__).substr(0, ((std::string)__FILE__).find_last_of('/') - 9) +
                 "/Shaders/";
         }
-
-        
+        std::cout << __FILE__ << std::endl;
 
         shader = GetShaderFromFile(currpath + vertexShaderPath, currpath + fragmentShaderPath);
     };
+
     ~Shader()
     {
         glDeleteProgram(shader);
     }
+
     void SetMat4(glm::mat4 matrix, const std::string &refName)
     {
         glUniformMatrix4fv(glGetUniformLocation(shader, refName.c_str()), 1, false, &matrix[0][0]);
     }
+
+    void SetVec4(glm::vec4 vec, const std::string &refName)
+    {
+        glUniform4f(glGetUniformLocation(shader, refName.c_str()), vec.r, vec.g, vec.b, vec.a);
+    }
+
+    void Set1i(unsigned int a, const std::string &refName)
+    {
+        glUniform1i(glGetUniformLocation(shader, refName.c_str()), a);
+    }
+
     void UseShader()
     {
         glUseProgram(shader);
     }
+
     operator unsigned int() const noexcept
     {
         return shader;

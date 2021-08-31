@@ -70,4 +70,8 @@ public:
             m_speed.x = 0;
         }
     }
+
+    void OnUpdate(Shader &shader)
+    {
+    }
 };

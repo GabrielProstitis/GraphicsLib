@@ -5,6 +5,7 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "Shader.hpp"
 
 #include <iostream>
 #include <cstdint>
@@ -17,6 +18,7 @@ class Component
 public:
     virtual void Initialize(Object &obj) = 0;
     virtual void OnUpdate() = 0;
+    virtual void OnUpdate(Shader &shader) = 0;
 };
 
 class Object
@@ -26,7 +28,6 @@ public:
     virtual uint32_t GetID() = 0;
     virtual void SetPosition(glm::vec3 pos) = 0;
     virtual glm::vec3 GetPosition() = 0;
-    virtual glm::vec4 GetColor() = 0;
 
 #pragma region Components
 private:
@@ -93,14 +94,13 @@ public:
         return result;
     }
 
-    std::vector<Component*> GetComponents()
+    std::vector<Component *> GetComponents()
     {
-        std::vector<Component*> result;
+        std::vector<Component *> result;
         int ErrorMode = -1;
 
         if (Components.size() == 0)
             return result;
-
 
         for (auto it = Components.begin(); it != Components.end(); it++)
             result.push_back(*it);
