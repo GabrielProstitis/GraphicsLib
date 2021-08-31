@@ -26,8 +26,8 @@ public:
         m_Window = glfwCreateWindow(width, height, m_Title.c_str(), NULL, NULL);
     }
     GLFWwindow *GetWindow() { return m_Window; }
-    uint32_t GetWidth() { return m_Width; }
-    uint32_t GetHeight() { return m_Height; }
+    float GetWidth() { return m_Width; }
+    float GetHeight() { return m_Height; }
     std::string GetTitle() { return m_Title; }
 
     bool IsButtonDown(GLint Key)

@@ -45,6 +45,10 @@ public:
         }
         m_speed += force;
     }
+    void AddConstantForce(glm::vec3 force)
+    {
+        m_speed = force;
+    }
 
     glm::vec3 GetSpeed()
     {

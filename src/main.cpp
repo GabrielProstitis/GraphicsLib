@@ -1,5 +1,4 @@
 #include "GraphicsLib.hpp"
-#include <chrono>
 
 int main(void)
 {
@@ -7,48 +6,29 @@ int main(void)
     InitGraphics(window);
 
     Renderer MainRenderer;
-    MainRenderer.setSpace(-(float)(window.GetWidth() / 2), window.GetWidth() / 2, -(float)(window.GetHeight() / 2), window.GetHeight() / 2);
+    MainRenderer.setSpace(0, window.GetWidth(), 0, window.GetHeight());
 
-    Circle circ1(glm::vec2(520, 0), 20);
-    circ1.AddComponent<Rigidbody>();
-    circ1.AddComponent<CircleCollision2D>();
-    //circ1.GetComponent<Rigidbody>()->AddForce(glm::vec3(-5.0f, 0.0f, 0.0f));
-    circ1.GetComponent<Rigidbody>()->SetGravity(1.01f, true);
+    Quad paddle1(glm::vec2(50.0f, window.GetHeight() / 2), glm::vec2(20.0f, 200.0f));
+    paddle1.AddComponent<Rigidbody>();
+    paddle1.GetComponent<Rigidbody>()->SetGravity(0.0f, false);
 
-    Quad quad1(glm::vec2(-520, 0), glm::vec2(100, 50));
-    quad1.AddComponent<Rigidbody>();
-    quad1.AddComponent<QuadCollision2D>();
-    //quad1.GetComponent<Rigidbody>()->AddForce(glm::vec3(5.0f, 0.0f, 0.0f));
-    quad1.GetComponent<Rigidbody>()->SetGravity(1.01f, true);
+    Quad paddle2(glm::vec2(window.GetWidth() - 50.0f, window.GetHeight() / 2), glm::vec2(20.0f, 200.0f));
+    paddle2.AddComponent<Rigidbody>();
+    paddle2.GetComponent<Rigidbody>()->SetGravity(0.0f, false);
 
-    bool PrecPressed = false;
-    bool isPressed = window.IsButtonDown(GLFW_KEY_SPACE);
+    Circle ball(glm::vec2(window.GetWidth() / 2, window.GetHeight() / 2), 15.0f);
+    ball.AddComponent<Rigidbody>();
+    ball.GetComponent<Rigidbody>()->SetGravity(0.0f, false);
 
     while (!glfwWindowShouldClose(window.GetWindow()))
     {
 
         MainRenderer.clear();
 
-        if (circ1.GetComponent<CircleCollision2D>()->isColliding(*quad1.GetComponent<QuadCollision2D>()))
-        {
-            std::cout << "Circ1 colliding with quad1" << std::endl;
-        }
-
-        isPressed = window.IsButtonDown(GLFW_KEY_SPACE);
-        if (isPressed == true && PrecPressed == false)
-        {
-            PrecPressed = true;
-            quad1.GetComponent<Rigidbody>()->AddForce(glm::vec3(0.0f, 2.0f, 0.0f));
-        }
-        else if (isPressed == false)
-        {
-            PrecPressed = false;
-        }
-
-        std::cout << PrecPressed << std::endl;
-
-        MainRenderer.render(circ1);
-        MainRenderer.render(quad1);
+        ball.GetComponent<Rigidbody>()->AddConstantForce(glm::vec3(0.5f, 0.7f, 0.0f));
+        MainRenderer.render(paddle1);
+        MainRenderer.render(paddle2);
+        MainRenderer.render(ball);
 
         glfwSwapBuffers(window.GetWindow());
         glfwPollEvents();
