@@ -18,16 +18,16 @@ public:
 	void SetTexture(std::string textureName)
 	{
 		stbi_set_flip_vertically_on_load(1);
-		int something;
-		int width = 222;
-		int height = 222;
-
+		int width;
+		int height;
 		std::string Path = (std::string)__FILE__;
 		std::string TexturesPath = Path.substr(0, Path.size() - 32) + (std::string) "\\Textures\\";
 
-		unsigned char *bytes = stbi_load((TexturesPath + textureName).c_str(), &width, &height, &something, 4);
+		unsigned char *image = stbi_load((TexturesPath + textureName).c_str(), &width, &height, 0, 4);
 
-		if (bytes == nullptr)
+		std::cout << std::endl <<width;
+
+		if (image == nullptr)
 		{
 			LOGBREAK("Couldn't Find Image");
 		}
@@ -42,11 +42,11 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		Graphics::glBindTexture(GL_TEXTURE_2D, 0);
 
-		if (bytes)
-			stbi_image_free(bytes);
+		if (image)
+			stbi_image_free(image);
 	}
 
 	void OnUpdate()

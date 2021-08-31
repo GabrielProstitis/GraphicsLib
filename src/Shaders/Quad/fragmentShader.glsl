@@ -10,8 +10,8 @@ uniform sampler2D Texture;
 
 void main()
 {
-    if(false)
+    if(frag_color.x != -1)
         Color = frag_color;
     else
-        Color = texture(Texture, TexCoords*vec2(0.005f));
+        Color = texture(Texture, TexCoords/vec2(105f) + (vec2(0.45f, 0.5f)));
 } 
