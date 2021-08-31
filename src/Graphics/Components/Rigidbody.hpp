@@ -49,7 +49,6 @@ public:
     {
         m_speed = force;
     }
-
     glm::vec3 GetSpeed()
     {
         return m_speed;

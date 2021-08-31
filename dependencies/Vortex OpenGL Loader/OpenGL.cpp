@@ -8,6 +8,7 @@ namespace Vortex::Graphics
 {
 #pragma region initializing opengl functions
 #define VT_GL_INIT_FUNC(name) PFNGL##name##PROC gl##name = nullptr
+    VT_GL_INIT_FUNC(ActiveTexture);
     VT_GL_INIT_FUNC(AttachShader);
     VT_GL_INIT_FUNC(BindBuffer);
     VT_GL_INIT_FUNC(BindSampler);
@@ -100,6 +101,7 @@ namespace Vortex::Graphics
 
 #pragma region loading opengl functions
 #define VT_GL_LOAD(name) gl##name = (PFNGL##name##PROC)GetProcAddress(ubyte(gl##name))
+        VT_GL_LOAD(ActiveTexture);
         VT_GL_LOAD(AttachShader);
         VT_GL_LOAD(BindBuffer);
         VT_GL_LOAD(BindSampler);
