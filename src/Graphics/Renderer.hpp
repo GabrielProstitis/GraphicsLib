@@ -56,6 +56,9 @@ public:
 
 		std::vector<Mesh *> meshes = object.GetComponents<Mesh>();
 
+
+		glActiveTexture(GL_TEXTURE0+1);
+		Graphics::glBindTexture(GL_TEXTURE_2D, object.GetComponent<Texture>()->TBO);
 		glUniform1i(glGetUniformLocation(m_Shader, "Texture"), object.GetComponent<Texture>()->TBO);
 
 

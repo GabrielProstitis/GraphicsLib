@@ -13,5 +13,5 @@ void main()
     if(false)
         Color = frag_color;
     else
-        Color = texture(Texture, TexCoords);
+        Color = texture(Texture, TexCoords*vec2(0.005f));
 } 
