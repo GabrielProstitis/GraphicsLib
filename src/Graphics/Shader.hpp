@@ -97,8 +97,6 @@ public:
         }
 
         
-        std::cout << currpath << std::endl;
-        
 
         shader = GetShaderFromFile(currpath + vertexShaderPath, currpath + fragmentShaderPath);
     };

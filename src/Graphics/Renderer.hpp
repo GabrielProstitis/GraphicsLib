@@ -56,6 +56,9 @@ public:
 
 		std::vector<Mesh *> meshes = object.GetComponents<Mesh>();
 
+		glUniform1i(glGetUniformLocation(m_Shader, "Texture"), object.GetComponent<Texture>()->TBO);
+
+
 		std::vector<Component*> ComponentList = object.GetComponents();
 		for (auto it = ComponentList.begin(); it != ComponentList.end(); it++)
 			(*it)->OnUpdate();

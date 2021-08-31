@@ -3,7 +3,15 @@ out vec4 Color;
   
 in vec4 frag_color; // the input variable from the vertex shader (same name and same type)  
 
+
+
+in vec2 TexCoords;
+uniform sampler2D Texture;
+
 void main()
 {
-    Color = frag_color;
+    if(true)
+        Color = frag_color;
+    else
+        Color = texture(Texture, TexCoords);
 } 

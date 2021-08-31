@@ -8,6 +8,7 @@
 #include "Graphics/Components/Mesh.hpp"
 #include "Graphics/Components/QuadCollision2D.hpp"
 #include "Graphics/Components/CircleCollision2D.hpp"
+#include "Graphics/Components/Texture.hpp"
 #pragma endregion
 
 #pragma region Objects
