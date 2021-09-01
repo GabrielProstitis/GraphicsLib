@@ -6,10 +6,20 @@ uniform vec4 Color;
 
 out vec4 frag_color;
 out vec2 TexCoords;
+
+vec2 TexCoordsVer[6] = vec2[6]
+( 
+vec2(0.5f, -0.5f), vec2(-0.5f, -0.5f), vec2(-0.5f, 0.5f),
+vec2(0.5f, 0.5f), vec2(-0.5f, -0.5f), vec2(-0.5f, 0.5f)
+
+);
 void main()
 {
     gl_Position = u_MVP*vec4(VerPos, 0.0, 1.0);
-    TexCoords = VerPos;
+
+    int vertexID = gl_VertexID;//Draft for 
+
+    TexCoords = (TexCoordsVer[vertexID]*vec2(-1,1)) + vec2(0.5f, 0.5f);
 
     frag_color = Color; 
 }

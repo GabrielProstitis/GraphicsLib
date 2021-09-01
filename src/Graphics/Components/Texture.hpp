@@ -49,7 +49,7 @@ public:
 		}
 
 		glGenTextures(1, &TBO);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE0+TBO);
 		Graphics::glBindTexture(GL_TEXTURE_2D, TBO);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -76,7 +76,7 @@ public:
 	{
 		if (m_IsTexture)
 		{
-			glActiveTexture(GL_TEXTURE0 + 1);
+			glActiveTexture(GL_TEXTURE0 + TBO);
 			Graphics::glBindTexture(GL_TEXTURE_2D, TBO);
 			shader.Set1i(TBO, "Texture");
 			shader.SetVec4(glm::vec4(-1, 0, 0, 1), "Color"); //if x is -1 frag shader switch to render texture

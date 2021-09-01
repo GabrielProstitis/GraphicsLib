@@ -49,19 +49,18 @@ public:
 	void render(Object &object)
 	{
 		m_Model = glm::translate(glm::mat4(1.0f), glm::vec3(object.GetPosition().x, object.GetPosition().y, 0.0f));
-
 		m_Shader.SetMat4(m_Proj * m_Model, "u_MVP");
 
-		std::vector<Mesh *> meshes = object.GetComponents<Mesh>();
-
-		std::vector<Component *> ComponentList = object.GetComponents();
-
+		
+		m_Shader.SetVec4(glm::vec4(1, 1, 1, 1), "Color");
+		std::vector<Component*> ComponentList = object.GetComponents();
 		for (auto it = ComponentList.begin(); it != ComponentList.end(); it++)
 		{
 			(*it)->OnUpdate(m_Shader);
 			(*it)->OnUpdate();
 		}
 
+		std::vector<Mesh*> meshes = object.GetComponents<Mesh>();
 		for (auto it = meshes.begin(); it != meshes.end(); it++)
 			render(**it);
 	}

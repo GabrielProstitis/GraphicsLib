@@ -44,10 +44,11 @@ public:
     }
 
     template <typename T>
-    void AddComponent()
+    T* AddComponent()
     {
         Components.push_back(new T());
         Components[Components.size() - 1]->Initialize(*this);
+        return dynamic_cast<T*>(Components[Components.size() - 1]);
     }
 
     template <typename T>
