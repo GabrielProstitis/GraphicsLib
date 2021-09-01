@@ -49,10 +49,10 @@ public:
 	void render(Object &object)
 	{
 		m_Model = glm::translate(glm::mat4(1.0f), glm::vec3(object.GetPosition().x, object.GetPosition().y, 0.0f));
-		m_Shader.SetMat4(m_Proj * m_Model, "u_MVP");
+		m_Shader.SetMat4("u_MVP", m_Proj * m_Model);
 
 		
-		m_Shader.SetVec4(glm::vec4(1, 1, 1, 1), "Color");
+		m_Shader.SetVec4("Color", glm::vec4(1, 1, 1, 1));
 		std::vector<Component*> ComponentList = object.GetComponents();
 		for (auto it = ComponentList.begin(); it != ComponentList.end(); it++)
 		{

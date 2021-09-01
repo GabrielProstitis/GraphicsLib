@@ -11,9 +11,10 @@ class Texture : public Component
 	Object *m_Object;
 	glm::vec4 m_Color;
 	bool m_IsTexture;
+	unsigned int m_TBO;
+	glm::vec2 m_Scale;
 
 public:
-	unsigned int TBO;
 
 	void Initialize(Object &obj)
 	{
@@ -30,7 +31,12 @@ public:
 		m_IsTexture = false;
 	}
 
-	void SetTexture(std::string textureName)
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="textureName"></param>
+	/// <param name="mode">0: Clamp, 1: Repeat</param>
+	void SetTexture(std::string textureName, glm::vec2 scale = glm::vec2(1.0f), int mode = 0)
 	{
 		stbi_set_flip_vertically_on_load(1);
 		int width;
@@ -38,24 +44,21 @@ public:
 		std::string Path = (std::string)__FILE__;
 		std::string TexturesPath = Path.substr(0, Path.size() - 32) + (std::string) "\\Textures\\";
 
-		unsigned char *image = stbi_load((TexturesPath + textureName).c_str(), &width, &height, 0, 4);
-
-		std::cout << std::endl
-				  << width;
+		unsigned char* image = stbi_load((TexturesPath + textureName).c_str(), &width, &height, 0, 4);
 
 		if (image == nullptr)
 		{
 			LOGBREAK("Couldn't Find Image");
 		}
 
-		glGenTextures(1, &TBO);
-		glActiveTexture(GL_TEXTURE0+TBO);
-		Graphics::glBindTexture(GL_TEXTURE_2D, TBO);
+		glGenTextures(1, &m_TBO);
+		glActiveTexture(GL_TEXTURE0+m_TBO);
+		Graphics::glBindTexture(GL_TEXTURE_2D, m_TBO);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x2900+mode);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x2900+mode);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		Graphics::glBindTexture(GL_TEXTURE_2D, 0);
@@ -64,7 +67,7 @@ public:
 		{
 			stbi_image_free(image);
 		}
-
+		m_Scale = scale;
 		m_IsTexture = true;
 	}
 
@@ -76,12 +79,13 @@ public:
 	{
 		if (m_IsTexture)
 		{
-			glActiveTexture(GL_TEXTURE0 + TBO);
-			Graphics::glBindTexture(GL_TEXTURE_2D, TBO);
-			shader.Set1i(TBO, "Texture");
-			shader.SetVec4(glm::vec4(-1, 0, 0, 1), "Color"); //if x is -1 frag shader switch to render texture
+			glActiveTexture(GL_TEXTURE0 + m_TBO);
+			Graphics::glBindTexture(GL_TEXTURE_2D, m_TBO);
+			shader.Set1i("Texture", m_TBO);
+			shader.SetVec2("texScale", m_Scale);
+			shader.SetVec4("Color", glm::vec4(-1, 0, 0, 1)); //if x is -1 frag shader switch to render texture
 		}
 		else
-			shader.SetVec4(m_Color, "Color");
+			shader.SetVec4("Color", m_Color);
 	}
 };
