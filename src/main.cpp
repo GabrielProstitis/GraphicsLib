@@ -9,15 +9,14 @@ int main(void)
     MainRenderer.setSpace(-window.GetWidth() / 2, window.GetWidth() / 2, -window.GetHeight() / 2, window.GetHeight() / 2);
 
     Quad quad1(glm::vec2(0, 0), glm::vec2(100, 100));
-    quad1.AddComponent<Texture>()->SetTexture("cubemix.png");
+    quad1.AddComponent<Texture>()->SetTexture("amogus.png");
+    //quad1.AddComponent<Rigidbody>();
 
     Quad quad2(glm::vec2(-150, 0), glm::vec2(100, 100));
     quad2.AddComponent<Texture>()->SetTexture("cubeblue.png");
 
-    Quad quad3(glm::vec2( 150, 0), glm::vec2(100, 100));
+    Quad quad3(glm::vec2(150, 0), glm::vec2(100, 100));
     quad3.AddComponent<Texture>()->SetTexture("amogus.png");
-
-
 
     while (!glfwWindowShouldClose(window.GetWindow()))
     {
@@ -25,9 +24,9 @@ int main(void)
 
         MainRenderer.render(quad1);
 
-        MainRenderer.render(quad2);
+        //MainRenderer.render(quad2);
 
-        MainRenderer.render(quad3);
+        //MainRenderer.render(quad3);
 
         glfwSwapBuffers(window.GetWindow());
         glfwPollEvents();
