@@ -2,31 +2,24 @@
 
 int main(void)
 {
-    Window window(640, 480, "Graphics Lib Test");
+    Window window(1080, 720, "Test");
     InitGraphics(window);
 
     Renderer MainRenderer;
-    MainRenderer.setSpace(-window.GetWidth() / 2, window.GetWidth() / 2, -window.GetHeight() / 2, window.GetHeight() / 2);
+    MainRenderer.setSpace(0, window.GetWidth(), 0, window.GetHeight());
 
-    Quad quad1(glm::vec2(0, 0), glm::vec2(100, 100));
-    quad1.AddComponent<Texture>()->SetTexture("amogus.png");
-    //quad1.AddComponent<Rigidbody>();
+    Quad quad1(glm::vec2(50, 100), glm::vec2(50, 50));
+    quad1.AddComponent<Texture>()->SetTexture("circle.png");
 
-    Quad quad2(glm::vec2(-150, 0), glm::vec2(100, 100));
-    quad2.AddComponent<Texture>()->SetTexture("cubeblue.png");
-
-    Quad quad3(glm::vec2(150, 0), glm::vec2(100, 100));
-    quad3.AddComponent<Texture>()->SetTexture("amogus.png");
+    Quad quad2(glm::vec2(50, 100), glm::vec2(60, 60));
+    quad2.AddComponent<Texture>()->SetColor(glm::vec4(0, 1, 0, 1));
 
     while (!glfwWindowShouldClose(window.GetWindow()))
     {
         MainRenderer.clear();
 
+        MainRenderer.render(quad2);
         MainRenderer.render(quad1);
-
-        //MainRenderer.render(quad2);
-
-        //MainRenderer.render(quad3);
 
         glfwSwapBuffers(window.GetWindow());
         glfwPollEvents();

@@ -5,18 +5,14 @@
 class Quad : public Object
 {
 private:
-    uint32_t m_ID;
-
-    glm::vec3 m_Position;
-
     glm::vec2 m_Size;
-
-    glm::vec4 m_Color;
 
 public:
     Quad(glm::vec2 position, glm::vec2 size)
-        : m_ID(0), m_Position(glm::vec3(position.x, position.y, 0)), m_Size(size)
+        : m_Size(size)
     {
+        m_ID = 0;
+        m_Position = glm::vec3(position.x, position.y, 0);
 
         std::vector<float> data =
             {
@@ -55,8 +51,5 @@ public:
         result->m_Ibo = ib;
     }
 
-    uint32_t GetID() { return m_ID; }
-    glm::vec3 GetPosition() { return m_Position; }
-    void SetPosition(glm::vec3 pos) { m_Position = pos; }
     glm::vec2 GetSize() { return m_Size; }
 };

@@ -4,7 +4,6 @@
 #include <GLFW/glfw3.h>
 #include <cstdint>
 #include "Objects/Object.hpp"
-#include "Components/Rigidbody.hpp"
 #include "Shader.hpp"
 
 glm::mat4 m_Proj;
@@ -22,13 +21,12 @@ public:
 		: m_Shader(VertexShader, FragmentShader)
 	{
 		m_Shader.UseShader();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	Renderer()
-		: m_Shader("Quad\\vertexShader.glsl", "Quad\\fragmentShader.glsl")
-	{
-		m_Shader.UseShader();
-	}
+		: Renderer("Quad\\vertexShader.glsl", "Quad\\fragmentShader.glsl") {}
 
 	void clear()
 	{
@@ -49,18 +47,18 @@ public:
 	void render(Object &object)
 	{
 		m_Model = glm::translate(glm::mat4(1.0f), glm::vec3(object.GetPosition().x, object.GetPosition().y, 0.0f));
-		m_Shader.SetMat4(m_Proj * m_Model, "u_MVP");
+		m_Shader.SetMat4("u_MVP", m_Proj * m_Model);
 
-		
-		m_Shader.SetVec4(glm::vec4(1, 1, 1, 1), "Color");
-		std::vector<Component*> ComponentList = object.GetComponents();
+		m_Shader.SetVec4("Color", glm::vec4(1, 1, 1, 1));
+		std::vector<Component *> ComponentList = object.GetComponents();
+
 		for (auto it = ComponentList.begin(); it != ComponentList.end(); it++)
 		{
 			(*it)->OnUpdate(m_Shader);
 			(*it)->OnUpdate();
 		}
 
-		std::vector<Mesh*> meshes = object.GetComponents<Mesh>();
+		std::vector<Mesh *> meshes = object.GetComponents<Mesh>();
 		for (auto it = meshes.begin(); it != meshes.end(); it++)
 			render(**it);
 	}

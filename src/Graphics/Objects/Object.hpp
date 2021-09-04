@@ -24,14 +24,15 @@ public:
 class Object
 {
 
-public:
-    virtual uint32_t GetID() = 0;
-    virtual void SetPosition(glm::vec3 pos) = 0;
-    virtual glm::vec3 GetPosition() = 0;
-
-#pragma region Components
-private:
+protected:
+    uint32_t m_ID;
+    glm::vec3 m_Position;
     std::vector<Component *> Components;
+
+public:
+    uint32_t GetID() { return m_ID; };
+    void SetPosition(glm::vec3 pos) { m_Position = pos; };
+    glm::vec3 GetPosition() { return m_Position; };
 
 public:
     ~Object()
@@ -44,11 +45,11 @@ public:
     }
 
     template <typename T>
-    T* AddComponent()
+    T *AddComponent()
     {
         Components.push_back(new T());
         Components[Components.size() - 1]->Initialize(*this);
-        return dynamic_cast<T*>(Components[Components.size() - 1]);
+        return dynamic_cast<T *>(Components[Components.size() - 1]);
     }
 
     template <typename T>

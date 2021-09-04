@@ -107,21 +107,27 @@ public:
         glDeleteProgram(shader);
     }
 
-    void SetMat4(glm::mat4 matrix, const std::string &refName)
+    void SetMat4(const std::string &refName, glm::mat4 matrix)
     {
         glUniformMatrix4fv(glGetUniformLocation(shader, refName.c_str()), 1, false, &matrix[0][0]);
     }
 
-    void SetVec4(glm::vec4 vec, const std::string &refName)
+    void SetVec4(const std::string &refName, glm::vec4 vec)
     {
         glUniform4f(glGetUniformLocation(shader, refName.c_str()), vec.r, vec.g, vec.b, vec.a);
     }
-
-    void Set1i(unsigned int a, const std::string &refName)
+    void SetVec2(const std::string &refName, glm::vec2 vec)
     {
-        glUniform1i(glGetUniformLocation(shader, refName.c_str()), a);
+        glUniform2f(glGetUniformLocation(shader, refName.c_str()), vec.r, vec.g);
     }
-
+    void Set1i(const std::string &refName, unsigned int val)
+    {
+        glUniform1i(glGetUniformLocation(shader, refName.c_str()), val);
+    }
+    void Set1f(const std::string &refName, float val)
+    {
+        glUniform1f(glGetUniformLocation(shader, refName.c_str()), val);
+    }
     void UseShader()
     {
         glUseProgram(shader);
