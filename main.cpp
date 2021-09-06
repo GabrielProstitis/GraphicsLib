@@ -1,4 +1,4 @@
-#include "GraphicsLib.hpp"
+#include "src/GraphicsLib.hpp"
 
 int main(void)
 {

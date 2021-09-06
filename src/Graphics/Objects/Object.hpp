@@ -24,15 +24,14 @@ public:
 class Object
 {
 
-protected:
-    uint32_t m_ID;
-    glm::vec3 m_Position;
-    std::vector<Component *> Components;
-
 public:
-    uint32_t GetID() { return m_ID; };
-    void SetPosition(glm::vec3 pos) { m_Position = pos; };
-    glm::vec3 GetPosition() { return m_Position; };
+    virtual uint32_t GetID() = 0;
+    virtual void SetPosition(glm::vec3 pos) = 0;
+    virtual glm::vec3 GetPosition() = 0;
+
+#pragma region Components
+private:
+    std::vector<Component *> Components;
 
 public:
     ~Object()

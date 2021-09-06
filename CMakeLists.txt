@@ -7,7 +7,7 @@ find_package (OpenGL REQUIRED COMPONENTS OpenGL)
 
 add_subdirectory(dependencies/glfw)
 
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB SOURCES "*.cpp")
 
 
 
